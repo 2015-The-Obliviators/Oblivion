@@ -42,6 +42,12 @@ class OblivionEnvironment extends Environment {
         if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             gameLevel = GameLevel.START;
         }
+        if (e.getKeyCode() == KeyEvent.VK_1) {
+            gameLevel = GameLevel.LEVEL_1;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_2) {
+            gameLevel = GameLevel.LEVEL_2;
+        }
     }
 
     @Override
@@ -92,13 +98,60 @@ class OblivionEnvironment extends Environment {
                 graphics.setColor(new Color(230, 230, 230, 75));
                 graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
                 graphics.drawString("Where are we really? This world is nothing.", 100, 200);
-                graphics.drawString("It is oblivion", 100, 250);
-                graphics.drawString("But even oblivion cannot always stay together", 100, 300);
+                graphics.drawString("It is Oblivion.", 100, 250);
+                graphics.drawString("But even Oblivion cannot always stay together.", 100, 300);
                 graphics.drawString("What if our world were to break?", 100, 350);
-                graphics.drawString("And the complete nothing-ness would scatter", 100, 400);
+                graphics.drawString("And the complete nothing-ness would scatter.", 100, 400);
                 break;
 //</editor-fold>
-        }
 
+            //<editor-fold defaultstate="collapsed" desc="LEVEL 1">
+            case LEVEL_1:
+
+                g2d.setRenderingHint(
+                        RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.rotate(Math.toRadians(0));
+                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                graphics.setColor(new Color(230, 230, 230, 75));
+                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
+                graphics.drawString("To Move", 375, 50);
+                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
+
+                graphics.drawString("Use the left and right arrow keys to move backwards and forwards.", 25, 100);
+                break;
+//</editor-fold>
+
+            //<editor-fold defaultstate="collapsed" desc="LEVEL 2">
+            case LEVEL_2:
+
+                g2d.setRenderingHint(
+                        RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.rotate(Math.toRadians(0));
+                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                graphics.setColor(new Color(230, 230, 230, 75));
+                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
+                graphics.drawString("To Grow and Shrink", 300, 50);
+                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
+                graphics.drawString("Use the down and up arrow keys to move change length.", 75, 100);
+                break;
+
+//</editor-fold>
+            case LEVEL_3:
+
+                g2d.setRenderingHint(
+                        RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.rotate(Math.toRadians(0));
+                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                graphics.setColor(new Color(230, 230, 230, 75));
+                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
+                graphics.drawString("Look, there's the O!", 300, 50);
+                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
+                graphics.drawString("", 75, 100);
+                break;
+
+        }
     }
 }
