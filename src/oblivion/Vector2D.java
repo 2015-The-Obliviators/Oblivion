@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oblivion;
+package platformphysics;
 
 /**
  *
- * @author brookeireland
+ * @author kevin.lawrence
  */
-public enum GameLevel {
-    START, STORY, LEVEL_1, LEVEL_2, 
-    LEVEL_3, LEVEL_4, LEVEL_5, LEVEL_6,
-    LEVEL_7, LEVEL_8, LEVEL_9,
+public class Vector2D {
     
+    public Vector2D(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+    
+    public int x, y;
 }
