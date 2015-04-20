@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformphysics;
+package oblivion;
 
 import environment.Velocity;
 import java.awt.Color;
@@ -52,7 +52,8 @@ public final class LetterI extends Letter {
         
         
         for (Entry<String, ChildBarrier> barrierMap : getBarriers()) {
-            barrierMap.getValue().setColor(Color.ORANGE);
+            barrierMap.getValue().setColor(Color.BLACK
+            );
         }
     }
 //</editor-fold>
