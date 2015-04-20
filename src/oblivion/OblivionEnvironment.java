@@ -5,24 +5,51 @@
  */
 package oblivion;
 
+import environment.Direction;
 import environment.Environment;
+import environment.Velocity;
 import images.ResourceTools;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
  * @author marieleger
  */
-class OblivionEnvironment extends Environment {
+class OblivionEnvironment extends Environment implements AccelerationProvider {
 
-    private GameLevel gameLevel = GameLevel.START;
+    private GameState gameLevel = GameState.START;
+
+    private ArrayList<Barrier> barriers;
+    private ArrayList<Letter> letters;
+
+    private Level level;
+
+//    private ArrayList<Letter> constraints;
+    {
+//        barriers = new ArrayList<>();
+//
+//        barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
+//        barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
+//
+////      barriers.add(new Barrier(new Point(100, 10), 2, 200, BarrierType.WALL));
+//        letters = new ArrayList<>();
+//        letters.add(new LetterI(new Point(0, 300), new Velocity(0, 0)));
+//
+//        for (Letter letter : letters) {
+//            letter.setAccelerationProvider(this);
+//        }
+
+    }
 
     @Override
     public void initializeEnvironment() {
@@ -32,21 +59,94 @@ class OblivionEnvironment extends Environment {
 
     @Override
     public void timerTaskHandler() {
+        checkIntersections();
+
+        if (letters != null) {
+            for (Letter letter : letters) {
+                letter.move();
+            }
+        }
     }
+
+    private void checkIntersections() {
+        boolean letterVBlocked = false;
+        boolean letterHBlocked = false;
+
+        for (Letter letter : letters) {
+            letterVBlocked = false;
+            letterHBlocked = false;
+
+            for (Barrier barrier : barriers) {
+                for (Map.Entry<String, ChildBarrier> letterBarrier : letter.getBarriers()) {
+                    if (barrier.intersects(letterBarrier.getValue())) {
+                        // assess the nature of the intersection (barrier type) 
+                        // stop the appropriate motion
+                        if (barrier.getType() == BarrierType.FLOOR) {
+                            if (letterBarrier.getValue().getType() == BarrierType.CEILING) {
+                                letterVBlocked |= true;
+                            }
+                        }
+                        if (barrier.getType() == BarrierType.CEILING) {
+                            if (letterBarrier.getValue().getType() == BarrierType.FLOOR) {
+                                letterVBlocked |= true;
+                            }
+                        }
+                        if (barrier.getType() == BarrierType.WALL) {
+                            if (letterBarrier.getValue().getType() == BarrierType.WALL) {
+                                letterHBlocked |= true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            letter.setVBlocked(letterVBlocked);
+            letter.setHBlocked(letterHBlocked);
+            //optimization... don't need to check other barriers if blocked
+//            if (letterBlocked) {
+//                break;
+//            }
+        }
+    }
+
+    int speed = 6;
 
     @Override
     public void keyPressedHandler(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            gameLevel = GameLevel.STORY;
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            letters.stream().forEach((letter) -> {
+                letter.move(Direction.LEFT, speed);
+            });
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            for (Letter letter : letters) {
+                letter.move(Direction.RIGHT, speed);
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            for (Letter letter : letters) {
+//                letter.move(Direction.UP, speed * 5 );
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            for (Letter letter : letters) {
+//                letter.move(Direction.DOWN, speed);
+            }
         }
-        if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-            gameLevel = GameLevel.START;
+
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            gameLevel = GameState.STORY;
+        } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            gameLevel = GameState.START;
         }
         if (e.getKeyCode() == KeyEvent.VK_1) {
-            gameLevel = GameLevel.LEVEL_1;
+            gameLevel = GameState.PLAYING;
+            level = Level.getLevel(1);
         }
         if (e.getKeyCode() == KeyEvent.VK_2) {
-            gameLevel = GameLevel.LEVEL_2;
+            gameLevel = GameState.PLAYING;
+            level = Level.getLevel(2);
+        }
+        if (e.getKeyCode() == KeyEvent.VK_3) {
+            gameLevel = GameState.PLAYING;
+            level = Level.getLevel(3);
         }
     }
 
@@ -106,52 +206,81 @@ class OblivionEnvironment extends Environment {
 //</editor-fold>
 
             //<editor-fold defaultstate="collapsed" desc="LEVEL 1">
-            case LEVEL_1:
+            case PLAYING:
 
                 g2d.setRenderingHint(
                         RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.rotate(Math.toRadians(0));
                 this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-                graphics.setColor(new Color(230, 230, 230, 75));
-                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
-                graphics.drawString("To Move", 375, 50);
-                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
+//                graphics.setColor(new Color(230, 230, 230, 75));
+//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
+//                graphics.drawString("To Move", 375, 250);
+//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
+//
+//                graphics.drawString("Use the left and right arrow keys to move backwards and forwards.", 25, 300);
 
-                graphics.drawString("Use the left and right arrow keys to move backwards and forwards.", 25, 100);
+                if (letters != null) {
+                    for (Letter letter : letters) {
+                        letter.paint(graphics);
+                    }
+                }
+
+                if (level != null) {
+                    for (Barrier barrier : level.getBarriers()) {
+                        barrier.paint(graphics);
+                    }
+                    
+//                    if (level != null) {
+//                    for (Text text : level.getText()) {
+//                        text.paint(graphics);
+//                    }
+                   
+                }
+
                 break;
-//</editor-fold>
 
+//</editor-fold>
             //<editor-fold defaultstate="collapsed" desc="LEVEL 2">
-            case LEVEL_2:
-
-                g2d.setRenderingHint(
-                        RenderingHints.KEY_ANTIALIASING,
-                        RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.rotate(Math.toRadians(0));
-                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-                graphics.setColor(new Color(230, 230, 230, 75));
-                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
-                graphics.drawString("To Grow and Shrink", 300, 50);
-                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
-                graphics.drawString("Use the down and up arrow keys to move change length.", 75, 100);
-                break;
-
-//</editor-fold>
-            case LEVEL_3:
-
-                g2d.setRenderingHint(
-                        RenderingHints.KEY_ANTIALIASING,
-                        RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.rotate(Math.toRadians(0));
-                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-                graphics.setColor(new Color(230, 230, 230, 75));
-                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
-                graphics.drawString("Look, there's the O!", 300, 50);
-                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
-                graphics.drawString("", 75, 100);
-                break;
-
+//            case LEVEL_2:
+//
+//                g2d.setRenderingHint(
+//                        RenderingHints.KEY_ANTIALIASING,
+//                        RenderingHints.VALUE_ANTIALIAS_ON);
+//                g2d.rotate(Math.toRadians(0));
+//                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+//                graphics.setColor(new Color(230, 230, 230, 75));
+//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
+//                graphics.drawString("To Grow and Shrink", 300, 50);
+//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
+//                graphics.drawString("Use the down and up arrow keys to move change length.", 75, 100);
+//                break;
+//
+////</editor-fold>
+            //            //<editor-fold defaultstate="collapsed" desc="LEVEL 3">
+//            case LEVEL_3:
+//
+//                g2d.setRenderingHint(
+//                        RenderingHints.KEY_ANTIALIASING,
+//                        RenderingHints.VALUE_ANTIALIAS_ON);
+//                g2d.rotate(Math.toRadians(0));
+//                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+//                graphics.setColor(new Color(230, 230, 230, 75));
+//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
+//                graphics.drawString("Look, there's the O!", 300, 50);
+//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
+//                graphics.drawString("", 75, 100);
+//                break;
+//
+//        }
+//
+////</editor-fold>
+                
         }
+    }
+    private Vector2D gravity = new Vector2D(0, 1);
+
+    public Vector2D getAcceleration() {
+        return gravity;
     }
 }
