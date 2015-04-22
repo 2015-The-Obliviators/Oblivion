@@ -37,14 +37,12 @@ public class Level {
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
-                
-                
+                  
             case 3:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
-                
-                
+                 
             case 4:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());

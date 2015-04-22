@@ -5,6 +5,7 @@
  */
 package oblivion;
 
+import audio.AudioPlayer;
 import environment.Direction;
 import environment.Environment;
 import environment.Velocity;
@@ -20,6 +21,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Map;
+import javax.sound.sampled.Clip;
 
 /**
  *
@@ -28,7 +30,7 @@ import java.util.Map;
 class OblivionEnvironment extends Environment implements AccelerationProvider {
 
     private GameState gameLevel = GameState.START;
-
+    private Clip clip;
     private ArrayList<Barrier> barriers;
     private ArrayList<Letter> letters;
 
@@ -54,7 +56,12 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
     @Override
     public void initializeEnvironment() {
         this.setBackground(ResourceTools.loadImageFromResource("resources/starstree.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-
+        
+            AudioPlayer.play("/resources/sadnessMusic.wav", 3);
+            
+        
+        
+//        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     @Override
@@ -230,12 +237,11 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
                     for (Barrier barrier : level.getBarriers()) {
                         barrier.paint(graphics);
                     }
-                    
+
 //                    if (level != null) {
 //                    for (Text text : level.getText()) {
 //                        text.paint(graphics);
 //                    }
-                   
                 }
 
                 break;
@@ -275,7 +281,6 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
 //        }
 //
 ////</editor-fold>
-                
         }
     }
     private Vector2D gravity = new Vector2D(0, 1);
