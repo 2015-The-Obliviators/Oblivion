@@ -31,6 +31,7 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
 
 
     private Level level;
+    BlockLetterI letterI;
 
 //    private ArrayList<Letter> constraints;
     {
@@ -57,78 +58,78 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
 
     @Override
     public void timerTaskHandler() {
-        checkIntersections();
+//        checkIntersections();
 
-        if ((level != null) && (level.getLetters() != null)) {
-            for (Letter letter : level.getLetters()) {
-                letter.move();
-            }
-        }
-    }
-
-    private void checkIntersections() {
-        if (level != null) {
-            boolean letterVBlocked = false;
-            boolean letterHBlocked = false;
-
-            for (Letter letter : level.getLetters()) {
-                letterVBlocked = false;
-                letterHBlocked = false;
-
-                for (Barrier barrier : level.getBarriers()) {
-                    for (Map.Entry<String, ChildBarrier> letterBarrier : letter.getBarriers()) {
-                        if (barrier.intersects(letterBarrier.getValue())) {
-                        // assess the nature of the intersection (barrier type) 
-                            // stop the appropriate motion
-                            if (barrier.getType() == BarrierType.FLOOR) {
-                                if (letterBarrier.getValue().getType() == BarrierType.CEILING) {
-                                    letterVBlocked |= true;
-                                }
-                            }
-                            if (barrier.getType() == BarrierType.CEILING) {
-                                if (letterBarrier.getValue().getType() == BarrierType.FLOOR) {
-                                    letterVBlocked |= true;
-                                }
-                            }
-                            if (barrier.getType() == BarrierType.WALL) {
-                                if (letterBarrier.getValue().getType() == BarrierType.WALL) {
-                                    letterHBlocked |= true;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                letter.setVBlocked(letterVBlocked);
-                letter.setHBlocked(letterHBlocked);
-                //optimization... don't need to check other barriers if blocked
-//            if (letterBlocked) {
-//                break;
+        if ((level != null) && (level.getLetterI() != null)) {
+//            for (Letter letter : level.getLetters()) {
+                level.getLetterI().move();
 //            }
-            }
         }
     }
+
+//    private void checkIntersections() {
+//        if (level != null) {
+//            boolean letterVBlocked = false;
+//            boolean letterHBlocked = false;
+//
+////            for (Letter letter : level.getLetterI()) {
+//                letterVBlocked = false;
+//                letterHBlocked = false;
+//
+//                for (Barrier barrier : level.getBarriers()) {
+//                    for (Map.Entry<String, ChildBarrier> letterBarrier : level.getLetterI().getBarriers()) {
+//                        if (barrier.intersects(letterBarrier.getValue())) {
+//                        // assess the nature of the intersection (barrier type) 
+//                            // stop the appropriate motion
+//                            if (barrier.getType() == BarrierType.FLOOR) {
+//                                if (letterBarrier.getValue().getType() == BarrierType.CEILING) {
+//                                    letterVBlocked |= true;
+//                                }
+//                            }
+//                            if (barrier.getType() == BarrierType.CEILING) {
+//                                if (letterBarrier.getValue().getType() == BarrierType.FLOOR) {
+//                                    letterVBlocked |= true;
+//                                }
+//                            }
+//                            if (barrier.getType() == BarrierType.WALL) {
+//                                if (letterBarrier.getValue().getType() == BarrierType.WALL) {
+//                                    letterHBlocked |= true;
+//                                }
+//                            }
+////                        }
+//                    }
+//                }
+//
+//                letter.setVBlocked(letterVBlocked);
+//                letter.setHBlocked(letterHBlocked);
+//                //optimization... don't need to check other barriers if blocked
+////            if (letterBlocked) {
+////                break;
+////            }
+//            }
+//        }
+//    }
 
     int speed = 6;
 
     @Override
     public void keyPressedHandler(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            level.getLetters().stream().forEach((letter) -> {
-                letter.move(Direction.LEFT, speed);
-            });
+//            level.getLetterI().stream().forEach((letter) -> {
+                level.getLetterI().move(Direction.LEFT, speed);
+//            });
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            for (Letter letter : level.getLetters()) {
-                letter.move(Direction.RIGHT, speed);
-            }
+//            for (Letter letter : level.getLetters()) {
+                level.getLetterI().move(Direction.RIGHT, speed);
+//            }
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            for (Letter letter : level.getLetters()) {
-//                letter.move(Direction.UP, speed * 5 );
-            }
+//            for (Letter letter : level.getLetters()) {
+                level.getLetterI().move(Direction.UP, speed * 5 );
+//            }
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            for (Letter letter : level.getLetters()) {
-//                letter.move(Direction.DOWN, speed);
-            }
+//            for (Letter letter : level.getLetters()) {
+                level.getLetterI().move(Direction.DOWN, speed);
+//            }
         }
 
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -220,10 +221,10 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
 //
 //                graphics.drawString("Use the left and right arrow keys to move backwards and forwards.", 25, 300);
 
-                if (level != null && (level.getLetters()) != null) {
-                    for (Letter letter : level.getLetters()) {
-                        letter.paint(graphics);
-                    }
+                if (level != null && (level.getLetterI()) != null) {
+//                    for (Letter letter : level.getLetterI()) {
+                        level.getLetterI().paint(graphics);
+//                    }
                 }
 
                 if (level != null && (level.getBarriers()) != null) {
