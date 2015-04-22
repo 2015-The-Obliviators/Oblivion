@@ -91,7 +91,7 @@ public final class BlockLetterI {
     }
 
     public void shrink(Direction direction) {
-        stem.height -= 1;
+        stem.height = Math.max(stem.height -1, 0);
         if (direction == Direction.DOWN) {
             setLocation(x, y + 1);
         } else {

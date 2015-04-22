@@ -123,13 +123,13 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
                 level.getLetterI().move(Direction.RIGHT, speed);
 //            }
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-//            for (Letter letter : level.getLetters()) {
-                level.getLetterI().move(Direction.UP, speed * 5 );
-//            }
+            if ((level != null) && (level.getLetterI() != null)) {
+                level.getLetterI().grow(BlockLetterI.Direction.UP);
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-//            for (Letter letter : level.getLetters()) {
-                level.getLetterI().move(Direction.DOWN, speed);
-//            }
+            if ((level != null) && (level.getLetterI() != null)) {
+                level.getLetterI().shrink(BlockLetterI.Direction.DOWN);
+            }
         }
 
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
