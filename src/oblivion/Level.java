@@ -93,17 +93,19 @@ public class Level {
     
     {
         barriers = new ArrayList<>();
-        letters = new ArrayList<>();
+//        letters = new ArrayList<>();
         text = "";
         acceleration = new Vector2D(0, 0);
+        setLetterI(new BlockLetterI(100, 100, 100, 150, false));
     }
     
     private int levelNumber;
     private ArrayList<Barrier> barriers;
     private Vector2D acceleration;
     private String text = "";
-    private ArrayList<Letter> letters;
+//    private ArrayList<Letter> letters;
 //    private ArrayList<Block> blocks;
+    private BlockLetterI letterI;
 
     /**
      * @return the levelNumber
@@ -161,18 +163,32 @@ public class Level {
         this.text = text;
     }
 
+//    /**
+//     * @return the letters
+//     */
+//    public ArrayList<Letter> getLetters() {
+//        return letters;
+//    }
+//
+//    /**
+//     * @param letters the letters to set
+//     */
+//    public void setLetters(ArrayList<Letter> letters) {
+//        this.letters = letters;
+//    }
+
     /**
-     * @return the letters
+     * @return the letterI
      */
-    public ArrayList<Letter> getLetters() {
-        return letters;
+    public BlockLetterI getLetterI() {
+        return letterI;
     }
 
     /**
-     * @param letters the letters to set
+     * @param letterI the letterI to set
      */
-    public void setLetters(ArrayList<Letter> letters) {
-        this.letters = letters;
+    public void setLetterI(BlockLetterI letterI) {
+        this.letterI = letterI;
     }
 
 }
