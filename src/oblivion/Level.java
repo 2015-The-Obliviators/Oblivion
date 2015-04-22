@@ -5,6 +5,7 @@
  */
 package oblivion;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -23,6 +24,10 @@ public class Level {
                 level.setAcceleration(new Vector2D(0, 1));
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
+                
+                for (Barrier barrier : level.barriers){
+                    barrier.setColor(new Color (0, 0, 0, 125));
+                }
 //                 barriers.add(new Barrier(new Point(100, 10), 2, 200, BarrierType.WALL));
 //        level.setLetters(new ArrayList<>());
 //        level.getLetters().add(new LetterI(new Point(0, 300), new Velocity(0, 0)));
@@ -34,8 +39,15 @@ public class Level {
                 
                 break;
             case 2:
+//                level.barriers.clear();
+                
                 level.setAcceleration(new Vector2D(0, 2));
-                level.setBarriers(new ArrayList<>());
+                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
+                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
+                level.barriers.add(new Barrier(new Point(50, 0), 100, 10, BarrierType.WALL));
+                for (Barrier barrier : level.barriers){
+                    barrier.setColor(new Color (0, 0, 0, 125));
+                }
                 
                 
                 
@@ -78,10 +90,18 @@ public class Level {
         return level;
     }
 
+    
+    {
+        barriers = new ArrayList<>();
+        letters = new ArrayList<>();
+        text = "";
+        acceleration = new Vector2D(0, 0);
+    }
+    
     private int levelNumber;
     private ArrayList<Barrier> barriers;
     private Vector2D acceleration;
-    private String text;
+    private String text = "";
     private ArrayList<Letter> letters;
 //    private ArrayList<Block> blocks;
 

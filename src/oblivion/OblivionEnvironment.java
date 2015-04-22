@@ -29,8 +29,6 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
 
     private GameState gameLevel = GameState.START;
 
-    private ArrayList<Barrier> barriers;
-    private ArrayList<Letter> letters;
 
     private Level level;
 
@@ -61,51 +59,53 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
     public void timerTaskHandler() {
         checkIntersections();
 
-        if (letters != null) {
-            for (Letter letter : letters) {
+        if ((level != null) && (level.getLetters() != null)) {
+            for (Letter letter : level.getLetters()) {
                 letter.move();
             }
         }
     }
 
     private void checkIntersections() {
-        boolean letterVBlocked = false;
-        boolean letterHBlocked = false;
+        if (level != null) {
+            boolean letterVBlocked = false;
+            boolean letterHBlocked = false;
 
-        for (Letter letter : letters) {
-            letterVBlocked = false;
-            letterHBlocked = false;
+            for (Letter letter : level.getLetters()) {
+                letterVBlocked = false;
+                letterHBlocked = false;
 
-            for (Barrier barrier : barriers) {
-                for (Map.Entry<String, ChildBarrier> letterBarrier : letter.getBarriers()) {
-                    if (barrier.intersects(letterBarrier.getValue())) {
+                for (Barrier barrier : level.getBarriers()) {
+                    for (Map.Entry<String, ChildBarrier> letterBarrier : letter.getBarriers()) {
+                        if (barrier.intersects(letterBarrier.getValue())) {
                         // assess the nature of the intersection (barrier type) 
-                        // stop the appropriate motion
-                        if (barrier.getType() == BarrierType.FLOOR) {
-                            if (letterBarrier.getValue().getType() == BarrierType.CEILING) {
-                                letterVBlocked |= true;
+                            // stop the appropriate motion
+                            if (barrier.getType() == BarrierType.FLOOR) {
+                                if (letterBarrier.getValue().getType() == BarrierType.CEILING) {
+                                    letterVBlocked |= true;
+                                }
                             }
-                        }
-                        if (barrier.getType() == BarrierType.CEILING) {
-                            if (letterBarrier.getValue().getType() == BarrierType.FLOOR) {
-                                letterVBlocked |= true;
+                            if (barrier.getType() == BarrierType.CEILING) {
+                                if (letterBarrier.getValue().getType() == BarrierType.FLOOR) {
+                                    letterVBlocked |= true;
+                                }
                             }
-                        }
-                        if (barrier.getType() == BarrierType.WALL) {
-                            if (letterBarrier.getValue().getType() == BarrierType.WALL) {
-                                letterHBlocked |= true;
+                            if (barrier.getType() == BarrierType.WALL) {
+                                if (letterBarrier.getValue().getType() == BarrierType.WALL) {
+                                    letterHBlocked |= true;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            letter.setVBlocked(letterVBlocked);
-            letter.setHBlocked(letterHBlocked);
-            //optimization... don't need to check other barriers if blocked
+                letter.setVBlocked(letterVBlocked);
+                letter.setHBlocked(letterHBlocked);
+                //optimization... don't need to check other barriers if blocked
 //            if (letterBlocked) {
 //                break;
 //            }
+            }
         }
     }
 
@@ -114,19 +114,19 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
     @Override
     public void keyPressedHandler(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            letters.stream().forEach((letter) -> {
+            level.getLetters().stream().forEach((letter) -> {
                 letter.move(Direction.LEFT, speed);
             });
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            for (Letter letter : letters) {
+            for (Letter letter : level.getLetters()) {
                 letter.move(Direction.RIGHT, speed);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            for (Letter letter : letters) {
+            for (Letter letter : level.getLetters()) {
 //                letter.move(Direction.UP, speed * 5 );
             }
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            for (Letter letter : letters) {
+            for (Letter letter : level.getLetters()) {
 //                letter.move(Direction.DOWN, speed);
             }
         }
@@ -136,15 +136,15 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
         } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             gameLevel = GameState.START;
         }
-        if (e.getKeyCode() == KeyEvent.VK_1) {
+        if (e.getKeyCode() == KeyEvent.VK_P) {
             gameLevel = GameState.PLAYING;
             level = Level.getLevel(1);
         }
-        if (e.getKeyCode() == KeyEvent.VK_2) {
+        if (e.getKeyCode() == KeyEvent.VK_O) {
             gameLevel = GameState.PLAYING;
             level = Level.getLevel(2);
         }
-        if (e.getKeyCode() == KeyEvent.VK_3) {
+        if (e.getKeyCode() == KeyEvent.VK_I) {
             gameLevel = GameState.PLAYING;
             level = Level.getLevel(3);
         }
@@ -205,7 +205,7 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
                 break;
 //</editor-fold>
 
-            //<editor-fold defaultstate="collapsed" desc="LEVEL 1">
+            //<editor-fold defaultstate="collapsed" desc="PLAYING">
             case PLAYING:
 
                 g2d.setRenderingHint(
@@ -220,22 +220,22 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
 //
 //                graphics.drawString("Use the left and right arrow keys to move backwards and forwards.", 25, 300);
 
-                if (letters != null) {
-                    for (Letter letter : letters) {
+                if (level != null && (level.getLetters()) != null) {
+                    for (Letter letter : level.getLetters()) {
                         letter.paint(graphics);
                     }
                 }
 
-                if (level != null) {
+                if (level != null && (level.getBarriers()) != null) {
                     for (Barrier barrier : level.getBarriers()) {
                         barrier.paint(graphics);
+                       
                     }
-                    
+
 //                    if (level != null) {
 //                    for (Text text : level.getText()) {
 //                        text.paint(graphics);
 //                    }
-                   
                 }
 
                 break;
@@ -275,7 +275,6 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
 //        }
 //
 ////</editor-fold>
-                
         }
     }
     private Vector2D gravity = new Vector2D(0, 1);
