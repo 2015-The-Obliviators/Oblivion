@@ -49,14 +49,12 @@ public class Level {
                     barrier.setColor(new Color (0, 0, 0, 125));
                 }
                 
-                
-                
+                  
             case 3:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
-                
-                
+                 
             case 4:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
