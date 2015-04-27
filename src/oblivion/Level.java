@@ -42,6 +42,7 @@ public class Level {
                 level.barriers.clear();
     
                 level.setAcceleration(new Vector2D(0, 2));
+<<<<<<< HEAD
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
                 level.barriers.add(new Barrier(new Point(50, 0), 100, 10, BarrierType.WALL));
@@ -49,6 +50,10 @@ public class Level {
                     barrier.setColor(new Color (0, 0, 0, 125));
                 }
                 break;
+=======
+                level.setBarriers(new ArrayList<>());
+                
+>>>>>>> mll-sound-02
                   
             case 3:
                 level.setAcceleration(new Vector2D(0, 2));

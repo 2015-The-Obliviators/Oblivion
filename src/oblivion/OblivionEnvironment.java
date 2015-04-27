@@ -30,9 +30,12 @@ import javax.sound.sampled.Clip;
 class OblivionEnvironment extends Environment implements AccelerationProvider {
 
     private GameState gameLevel = GameState.START;
+<<<<<<< HEAD
 //<<<<<<< HEAD
 
 //=======
+=======
+>>>>>>> mll-sound-02
     private Clip clip;
     private ArrayList<Barrier> barriers;
     private ArrayList<Letter> letters;
