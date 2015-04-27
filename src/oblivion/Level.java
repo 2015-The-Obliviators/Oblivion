@@ -39,8 +39,8 @@ public class Level {
                 
                 break;
             case 2:
-//                level.barriers.clear();
-                
+                level.barriers.clear();
+    
                 level.setAcceleration(new Vector2D(0, 2));
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
@@ -48,7 +48,7 @@ public class Level {
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0, 125));
                 }
-                
+                break;
                   
             case 3:
                 level.setAcceleration(new Vector2D(0, 2));
