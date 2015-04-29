@@ -6,6 +6,7 @@
 package oblivion;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -25,45 +26,57 @@ public class Level {
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
                 
+                level.setText("Use the left and right arrow keys to move");
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0, 125));
                 }
-//                 barriers.add(new Barrier(new Point(100, 10), 2, 200, BarrierType.WALL));
-//        level.setLetters(new ArrayList<>());
-//        level.getLetters().add(new LetterI(new Point(0, 300), new Velocity(0, 0)));
 
-//        for (Letter letter : getLetters()) {
-//            letter.setAccelerationProvider(this);
-//        }
              
                 
                 break;
             case 2:
                 level.barriers.clear();
+             
+                
     
                 level.setAcceleration(new Vector2D(0, 2));
-<<<<<<< HEAD
+
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-                level.barriers.add(new Barrier(new Point(50, 0), 100, 10, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(350, 100), 400, 275, BarrierType.WALL));
                 for (Barrier barrier : level.barriers){
-                    barrier.setColor(new Color (0, 0, 0, 125));
+                    barrier.setColor(new Color (0, 0, 0, 110));
                 }
                 break;
-=======
-                level.setBarriers(new ArrayList<>());
-                
->>>>>>> mll-sound-02
-                  
+
+            
             case 3:
+                       level.barriers.clear();
                 level.setAcceleration(new Vector2D(0, 2));
-                level.setBarriers(new ArrayList<>());
-                
+                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
+                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
+                level.barriers.add(new Barrier(new Point(350, 250), 50, 50, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.WALL));
+                for (Barrier barrier : level.barriers){
+                    barrier.setColor(new Color (0, 0, 0));
+                }
+                break;
                  
             case 4:
+                level.barriers.clear();
+          
                 level.setAcceleration(new Vector2D(0, 2));
-                level.setBarriers(new ArrayList<>());
+                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
+                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
+                level.barriers.add(new Barrier(new Point(200, 170), 50, 50, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(350, 420), 30, 80, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(550, 420), 30, 80, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(600, 220), 300, 400, BarrierType.WALL));
                 
+                for (Barrier barrier : level.barriers){
+                    barrier.setColor(new Color (0, 0, 0));   
+                }
+            break;
                 
             case 5:
                 level.setAcceleration(new Vector2D(0, 2));
@@ -109,6 +122,9 @@ public class Level {
 //    private ArrayList<Letter> letters;
 //    private ArrayList<Block> blocks;
     private BlockLetterI letterI;
+    
+    private int textX;
+    private int textY;
 
     /**
      * @return the levelNumber
@@ -192,6 +208,10 @@ public class Level {
      */
     public void setLetterI(BlockLetterI letterI) {
         this.letterI = letterI;
+    }
+
+    void drawText(Graphics graphics) {
+        graphics.drawString(text, textX, textY);
     }
 
 }

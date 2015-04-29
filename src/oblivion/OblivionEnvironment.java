@@ -30,16 +30,11 @@ import javax.sound.sampled.Clip;
 class OblivionEnvironment extends Environment implements AccelerationProvider {
 
     private GameState gameLevel = GameState.START;
-<<<<<<< HEAD
-//<<<<<<< HEAD
 
-//=======
-=======
->>>>>>> mll-sound-02
     private Clip clip;
     private ArrayList<Barrier> barriers;
     private ArrayList<Letter> letters;
-//>>>>>>> mll-sound-02
+
 
     private Level level;
     BlockLetterI letterI;
@@ -159,8 +154,12 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
         } else if (e.getKeyCode() == KeyEvent.VK_I) {
             gameLevel = GameState.PLAYING;
             level = Level.getLevel(3);
+        }else if (e.getKeyCode() == KeyEvent.VK_U) {
+            gameLevel = GameState.PLAYING;
+            level = Level.getLevel(4);
         }
     }
+    
 
     @Override
     public void keyReleasedHandler(KeyEvent e) {
