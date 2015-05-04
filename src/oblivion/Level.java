@@ -55,7 +55,7 @@ public class Level {
                 level.setAcceleration(new Vector2D(0, 2));
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-                level.barriers.add(new Barrier(new Point(350, 250), 50, 50, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(300, 225), 50, 50, BarrierType.WALL));
                 level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.WALL));
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0));
