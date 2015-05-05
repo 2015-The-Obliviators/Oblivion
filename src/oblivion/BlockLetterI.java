@@ -17,7 +17,8 @@ import java.util.Map;
  */
 public final class BlockLetterI {
 
-    public BlockLetterI(int x, int y, int width, int height, boolean stationary) {
+    public BlockLetterI(int x, int y, int width, int height, boolean stationary, 
+            AccelerationProviderIntf accelerationProvider) {
         topBar = new BlockLetterPart(x, y, width, height / 5);
         stem = new BlockLetterPart(x, y, width / 3, height * 3 / 5);
         bottomBar = new BlockLetterPart(x, y, width, height / 5);
@@ -48,12 +49,26 @@ public final class BlockLetterI {
         topBar.registerConnectionListeners(stem);
         stem.registerConnectionListeners(bottomBar);
         
+        this.accelerationProvider = accelerationProvider;
+        
         setLocation(x, y);
     }
 
-    ArrayList<BlockLetterPart> parts;
-    BlockLetterPart topBar, stem, bottomBar;
-    int x, y;
+    private ArrayList<BlockLetterPart> parts;
+    private BlockLetterPart topBar, stem, bottomBar;
+    private int x, y;
+    private AccelerationProviderIntf accelerationProvider;
+
+    /**
+     * @param accelerationProvider the accelerationProvider to set
+     */
+    public void setAccelerationProvider(AccelerationProviderIntf accelerationProvider) {
+        this.accelerationProvider = accelerationProvider;
+    }
+
+    
+    
+    
     
 //    Iterable<Map.Entry<String, ChildBarrier>> getBarriers() {
 //
@@ -63,7 +78,7 @@ public final class BlockLetterI {
     
 
     public void setLocation(int x, int y) {
-        this.x = x;
+        this.setX(x);
         this.y = y;
 
         topBar.setLocation(x, y);
@@ -77,6 +92,20 @@ public final class BlockLetterI {
 
     }
 
+    /**
+     * @return the x
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * @param x the x to set
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public static enum Direction {
         UP, DOWN
     };
@@ -84,18 +113,18 @@ public final class BlockLetterI {
     public void grow(Direction direction) {
         stem.height += 1;
         if (direction == Direction.UP) {
-            setLocation(x, y - 1);
+            setLocation(getX(), y - 1);
         } else {
-            setLocation(x, y);
+            setLocation(getX(), y);
         }
     }
 
     public void shrink(Direction direction) {
         stem.height = Math.max(stem.height -1, 0);
         if (direction == Direction.DOWN) {
-            setLocation(x, y + 1);
+            setLocation(getX(), y + 1);
         } else {
-            setLocation(x, y);
+            setLocation(getX(), y);
         }
     }
 

@@ -14,15 +14,18 @@ import java.util.ArrayList;
  *
  * @author brookeireland
  */
-public class Level {
+public class Level implements AccelerationProviderIntf {
 
     public static Level getLevel(int levelNumber) {
         Level level = new Level();
+        
+        //default gravity acceleration
+        level.setAcceleration(new Vector2D(0, 2));
 
         switch (levelNumber) {
             case 1:
                 level.barriers.clear();
-                level.setAcceleration(new Vector2D(0, 1));
+
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
                 
@@ -31,35 +34,36 @@ public class Level {
                     barrier.setColor(new Color (0, 0, 0, 125));
                 }
 
-             
-                
+                level.setAcceleration(new Vector2D(0, 1));
                 break;
+
             case 2:
                 level.barriers.clear();
-             
-                
-    
-                level.setAcceleration(new Vector2D(0, 2));
-
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
                 level.barriers.add(new Barrier(new Point(350, 100), 400, 275, BarrierType.WALL));
+                
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0, 110));
                 }
+
+                level.setAcceleration(new Vector2D(0, 2));
                 break;
 
             
             case 3:
-                       level.barriers.clear();
-                level.setAcceleration(new Vector2D(0, 2));
+                level.barriers.clear();
+                
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
                 level.barriers.add(new Barrier(new Point(300, 225), 50, 50, BarrierType.WALL));
                 level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.WALL));
+                
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0));
                 }
+
+                level.setAcceleration(new Vector2D(0, 2));
                 break;
                  
             case 4:
@@ -82,21 +86,25 @@ public class Level {
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
+            break;
                 
             case 6:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
+            break;
                 
             case 7:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
+            break;
                 
             case 8:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
+            break;
                 
             case 9:
                 level.setAcceleration(new Vector2D(0, 2));
@@ -112,7 +120,7 @@ public class Level {
 //        letters = new ArrayList<>();
         text = "";
         acceleration = new Vector2D(0, 0);
-        setLetterI(new BlockLetterI(100, 100, 100, 150, false));
+        setLetterI(new BlockLetterI(100, 100, 100, 150, false, this));
     }
     
     private int levelNumber;

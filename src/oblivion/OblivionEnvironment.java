@@ -27,7 +27,7 @@ import javax.sound.sampled.Clip;
  *
  * @author marieleger
  */
-class OblivionEnvironment extends Environment implements AccelerationProvider {
+class OblivionEnvironment extends Environment {
 
     private GameState gameLevel = GameState.START;
 
@@ -172,8 +172,8 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
     @Override
     public void paintEnvironment(Graphics graphics) {
         Graphics2D g2d = (Graphics2D) graphics;
+        
         switch (gameLevel) {
-
             //<editor-fold defaultstate="collapsed" desc="START">
             case START:
 
@@ -252,6 +252,7 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
                 break;
 
 //</editor-fold>
+                
             //<editor-fold defaultstate="collapsed" desc="LEVEL 2">
 //            case LEVEL_2:
 //
@@ -268,6 +269,7 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
 //                break;
 //
 ////</editor-fold>
+                
             //            //<editor-fold defaultstate="collapsed" desc="LEVEL 3">
 //            case LEVEL_3:
 //
@@ -288,9 +290,9 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
 ////</editor-fold>
         }
     }
-    private Vector2D gravity = new Vector2D(0, 1);
-
-    public Vector2D getAcceleration() {
-        return gravity;
-    }
+//    private Vector2D gravity = new Vector2D(0, 1);
+//
+//    public Vector2D getAcceleration() {
+//        return gravity;
+//    }
 }

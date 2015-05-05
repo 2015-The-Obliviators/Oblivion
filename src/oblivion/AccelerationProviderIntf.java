@@ -9,6 +9,6 @@ package oblivion;
  *
  * @author kevin.lawrence
  */
-public interface AccelerationProvider {
+public interface AccelerationProviderIntf {
     public Vector2D getAcceleration();
 }
