@@ -5,17 +5,19 @@
  */
 package oblivion;
 
+import environment.Velocity;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  *
  * @author kevin.lawrence
  */
 public final class BlockLetterI {
+    private int maxX;
 
     public BlockLetterI(int x, int y, int width, int height, boolean stationary, 
             AccelerationProviderIntf accelerationProvider) {
@@ -51,12 +53,12 @@ public final class BlockLetterI {
         
         this.accelerationProvider = accelerationProvider;
         
-        setLocation(x, y);
+        setPosition(x, y);
     }
 
     private ArrayList<BlockLetterPart> parts;
     private BlockLetterPart topBar, stem, bottomBar;
-    private int x, y;
+//    private int x, y;
     private AccelerationProviderIntf accelerationProvider;
 
     /**
@@ -77,33 +79,164 @@ public final class BlockLetterI {
     
     
 
-    public void setLocation(int x, int y) {
-        this.setX(x);
-        this.y = y;
+    public void move() {
+        if (getAccelerationProvider() != null) {
+            accelerate(getAccelerationProvider().getAcceleration());
+        }
 
-        topBar.setLocation(x, y);
+        move(getVelocity().x, getVelocity().y);
     }
 
-    void move(environment.Direction direction, int speed) {
+    public void accelerate(Vector2D accelerationVector) {
+        if (!ishBlocked()) {
+            int x = getVelocity().x + accelerationVector.x;
+            if (Math.abs(x) < maxX) {
+                getVelocity().x = x;
+            }
+        }
 
+        if (!isvBlocked()) {
+            int y = getVelocity().y + accelerationVector.y;
+            if (Math.abs(y) < maxX) {
+                getVelocity().y = y;
+            }
+        }
+
+//        this.getVelocity().x += accelerationVector.x;
+//        this.getVelocity().y += accelerationVector.y;
+    }
+    
+    public void move(environment.Direction direction, int distance) {
+        int x = 0;
+        int y = 0;
+
+        switch (direction) {
+            case LEFT:
+                x = -1 * distance;
+                break;
+            case RIGHT:
+                x = 1 * distance;
+                break;
+            case UP:
+                y = -1 * distance;
+                break;
+            case DOWN:
+                y = 1 * distance;
+                break;
+        }
+
+        move(x, y);
     }
 
-    void move() {
+    public void move(int x, int y) {
+        Point newPosition = (Point) getPosition().clone();
+        newPosition.x += x;
+        newPosition.y += y;
+        setPosition(newPosition);
+    }
+    
+    
+    private Point position;
+    private Velocity velocity;
+    
+    private boolean vBlocked = false;
+    private boolean hBlocked = false;
 
+    
+//    /**
+//     * @return the x
+//     */
+//    public int getX() {
+//        return x;
+//    }
+//
+//    /**
+//     * @param x the x to set
+//     */
+//    public void setX(int x) {
+//        this.x = x;
+//    }
+//
+    /**
+     * @return the vBlocked
+     */
+    public boolean isvBlocked() {
+        return vBlocked;
     }
 
     /**
-     * @return the x
+     * @param vBlocked the vBlocked to set
      */
-    public int getX() {
-        return x;
+    public void setvBlocked(boolean vBlocked) {
+        this.vBlocked = vBlocked;
     }
 
     /**
-     * @param x the x to set
+     * @return the hBlocked
      */
-    public void setX(int x) {
-        this.x = x;
+    public boolean ishBlocked() {
+        return hBlocked;
+    }
+
+    /**
+     * @param hBlocked the hBlocked to set
+     */
+    public void sethBlocked(boolean hBlocked) {
+        this.hBlocked = hBlocked;
+    }
+
+//    public void setLocation(int x, int y) {
+////        this.setX(x);
+////        this.getPosition().x = x;
+////        this.y = y;
+//
+//        setPosition(new Point(x, y));
+//        
+//        topBar.setLocation(x, y);
+//    }
+
+    /**
+     * @return the position
+     */
+    public Point getPosition() {
+        return position;
+    }
+
+    /**
+     * @param position the position to set
+     */
+    public void setPosition(Point position) {
+        this.position = position;
+        topBar.setLocation(position.x, position.y);
+    }
+
+    /**
+     * @param x
+     * @param y
+     */
+    public void setPosition(int x, int y) {
+        setPosition(new Point(x, y));
+    }
+
+    /**
+     * @return the velocity
+     */
+    public Velocity getVelocity() {
+        return velocity;
+    }
+
+    /**
+     * @param velocity the velocity to set
+     */
+    public void setVelocity(Velocity velocity) {
+        this.velocity = velocity;
+    }
+
+    /**
+     * @return the accelerationProvider
+     */
+    public AccelerationProviderIntf getAccelerationProvider() {
+        return accelerationProvider;
     }
 
     public static enum Direction {
@@ -112,20 +245,32 @@ public final class BlockLetterI {
 
     public void grow(Direction direction) {
         stem.height += 1;
+        
         if (direction == Direction.UP) {
-            setLocation(getX(), y - 1);
+            setPosition(getPosition().x, getPosition().y - 1);
         } else {
-            setLocation(getX(), y);
+            setPosition(getPosition().x, getPosition().y);
         }
+//        if (direction == Direction.UP) {
+//            setLocation(getX(), y - 1);
+//        } else {
+//            setLocation(getX(), y);
+//        }
     }
 
     public void shrink(Direction direction) {
         stem.height = Math.max(stem.height -1, 0);
-        if (direction == Direction.DOWN) {
-            setLocation(getX(), y + 1);
+
+        if (direction == Direction.UP) {
+            setPosition(getPosition().x, getPosition().y + 1);
         } else {
-            setLocation(getX(), y);
+            setPosition(getPosition().x, getPosition().y);
         }
+//        if (direction == Direction.DOWN) {
+//            setLocation(getX(), y + 1);
+//        } else {
+//            setLocation(getX(), y);
+//        }
     }
 
     public void paint(Graphics graphics) {
