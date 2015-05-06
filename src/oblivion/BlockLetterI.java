@@ -129,6 +129,11 @@ public final class BlockLetterI {
         setPosition(newPosition);
     }
     
+    private void stop() {
+        velocity.x = 0;
+        velocity.y = 0;
+    }
+
     public void grow(Direction direction) {
         stem.height += 1;
         
@@ -206,10 +211,14 @@ public final class BlockLetterI {
     }
     
     /**
-     * @param vBlocked the vBlocked to set
+     * @param blocked the vBlocked to set
      */
-    public void setVBlocked(boolean vBlocked) {
-        this.vBlocked = vBlocked;
+    public void setVBlocked(boolean blocked) {
+        this.vBlocked = blocked;
+
+        if (blocked){
+            stop();
+        }
     }
     
     /**
@@ -220,10 +229,14 @@ public final class BlockLetterI {
     }
     
     /**
-     * @param hBlocked the hBlocked to set
+     * @param blocked the hBlocked to set
      */
-    public void setHBlocked(boolean hBlocked) {
-        this.hBlocked = hBlocked;
+    public void setHBlocked(boolean blocked) {
+        this.hBlocked = blocked;
+
+        if (blocked){
+            stop();
+        }
     }
     
     /**

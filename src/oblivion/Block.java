@@ -208,9 +208,7 @@ public class Block extends Rectangle {
         }
         
         if (hasBottomBarrier()){
-            Point loc = (Point) getLocation().clone();
-            loc.y = height / 2;
-            updatedBarriers.add(new Barrier(loc, width, height / 2, BarrierType.CEILING));
+            updatedBarriers.add(new Barrier(new Point(getLocation().x, getLocation().y + (height / 2)), width, height / 2, BarrierType.CEILING));
         }
         
         if (hasLeftBarrier()){
@@ -218,9 +216,7 @@ public class Block extends Rectangle {
         }
         
         if (hasRightBarrier()){
-            Point loc = (Point) getLocation().clone();
-            loc.x = width / 2;
-            updatedBarriers.add(new Barrier(this.getLocation(), width / 2, height, BarrierType.WALL));
+            updatedBarriers.add(new Barrier(new Point(getLocation().x + (width / 2), getLocation().y), width, height / 2, BarrierType.CEILING));
         }
 
         return updatedBarriers;

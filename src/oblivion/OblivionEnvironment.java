@@ -8,20 +8,15 @@ package oblivion;
 import audio.AudioPlayer;
 import environment.Direction;
 import environment.Environment;
-import environment.Velocity;
 import images.ResourceTools;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Map;
-import javax.sound.sampled.Clip;
 
 /**
  *
@@ -58,8 +53,8 @@ class OblivionEnvironment extends Environment {
 
     private void checkIntersections() {
         if (level != null) {
-            boolean letterVBlocked = false;
-            boolean letterHBlocked = false;
+            boolean letterVBlocked;
+            boolean letterHBlocked;
 
 //            for (Letter letter : level.getLetterI()) {
                 letterVBlocked = false;
@@ -68,22 +63,31 @@ class OblivionEnvironment extends Environment {
                 for (Barrier barrier : level.getBarriers()) {
 
                     for (Barrier letterBarrier : level.getLetterI().getBarriers()) {
-                        if (barrier.intersects(letterBarrier.getBounds())) {
+                        if (barrier.intersects(letterBarrier)) {
                         // assess the nature of the intersection (barrier type) 
                             // stop the appropriate motion
+
+//                            System.out.println(" Intersect");
+//                            System.out.printf("   B [%d, %d, %d, %d] %s\n", barrier.x, barrier.y, barrier.width, barrier.height, barrier.getType().toString());
+//                            System.out.printf("   LB[%d, %d, %d, %d] %s\n", letterBarrier.x, letterBarrier.y, letterBarrier.width, letterBarrier.height, letterBarrier.getType().toString());
+                            
                             if (barrier.getType() == BarrierType.FLOOR) {
                                 if (letterBarrier.getType() == BarrierType.CEILING) {
                                     letterVBlocked |= true;
+                                    System.out.println("V Blocked");
+                                    
                                 }
                             }
                             if (barrier.getType() == BarrierType.CEILING) {
                                 if (letterBarrier.getType() == BarrierType.FLOOR) {
                                     letterVBlocked |= true;
+                                    System.out.println("V Blocked");
                                 }
                             }
                             if (barrier.getType() == BarrierType.WALL) {
                                 if (letterBarrier.getType() == BarrierType.WALL) {
                                     letterHBlocked |= true;
+                                    System.out.println("H Blocked");
                                 }
                             }
 //                        }

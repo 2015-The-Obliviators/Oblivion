@@ -190,20 +190,6 @@ public class Level implements AccelerationProviderIntf {
         this.text = text;
     }
 
-//    /**
-//     * @return the letters
-//     */
-//    public ArrayList<Letter> getLetters() {
-//        return letters;
-//    }
-//
-//    /**
-//     * @param letters the letters to set
-//     */
-//    public void setLetters(ArrayList<Letter> letters) {
-//        this.letters = letters;
-//    }
-
     /**
      * @return the letterI
      */
