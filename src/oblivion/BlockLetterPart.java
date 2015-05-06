@@ -15,14 +15,17 @@ import java.util.ArrayList;
  */
 public class BlockLetterPart extends Block implements ConnectionListenerIntf {
 
+//<editor-fold defaultstate="collapsed" desc="Constructors">
     {
-        connectionListeners = new ArrayList<>();
-    }
+    connectionListeners = new ArrayList<>();
+}
     
     public BlockLetterPart(int x, int y, int width, int height) {
         super(x, y, width, height, false);
     }
+//</editor-fold>
 
+//<editor-fold defaultstate="collapsed" desc="Properties">
     @Override
     public void setLocation(Point location){
         super.setLocation(location);
@@ -40,17 +43,18 @@ public class BlockLetterPart extends Block implements ConnectionListenerIntf {
             listener.onUpdate(this);
         });
     }
+//</editor-fold>
     
-    
+//<editor-fold defaultstate="collapsed" desc="Connection Listeners">
     private ArrayList<ConnectionListenerIntf> connectionListeners;
-
+    
     /**
      * @return the connectionProvider
      */
     public ArrayList<ConnectionListenerIntf> getConnectionListeners() {
         return connectionListeners;
     }
-
+    
     /**
      * @param listener the ConnectionListenter to add
      */
@@ -64,6 +68,7 @@ public class BlockLetterPart extends Block implements ConnectionListenerIntf {
     public void deregisterConnectionListeners(ConnectionListenerIntf listener) {
         connectionListeners.remove(listener);
     }
+//</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="ConnectionListenerIntf">
     private ConnectionUpdateHandlerIntf connectionUpdateHandler;
