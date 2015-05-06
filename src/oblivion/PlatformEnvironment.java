@@ -20,7 +20,7 @@ import java.util.Map.Entry;
  *
  * @author kevin.lawrence
  */
-class PlatformEnvironment extends Environment implements AccelerationProvider {
+class PlatformEnvironment extends Environment implements AccelerationProviderIntf {
 
     private ArrayList<Barrier> barriers;
     private ArrayList<Letter> letters;
@@ -149,7 +149,7 @@ class PlatformEnvironment extends Environment implements AccelerationProvider {
         }
     }
 
-//<editor-fold defaultstate="collapsed" desc="AccelerationProvider">
+//<editor-fold defaultstate="collapsed" desc="AccelerationProviderIntf">
     private Vector2D gravity = new Vector2D(0, 1);
 
     @Override

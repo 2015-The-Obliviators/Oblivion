@@ -99,7 +99,7 @@ public abstract class Letter extends Actor implements ParentPositionProviderIntf
 //<editor-fold defaultstate="collapsed" desc="Properties">
     private LetterPart currentFloor;
 
-    private AccelerationProvider accelerationProvider;
+    private AccelerationProviderIntf accelerationProvider;
     protected HashMap<String, ChildBarrier> barriers;
     protected HashMap<String, LetterPart> parts;
 
@@ -184,14 +184,14 @@ public abstract class Letter extends Actor implements ParentPositionProviderIntf
     /**
      * @return the accelerationProvider
      */
-    public AccelerationProvider getAccelerationProvider() {
+    public AccelerationProviderIntf getAccelerationProvider() {
         return accelerationProvider;
     }
 
     /**
      * @param accelerationProvider the accelerationProvider to set
      */
-    public void setAccelerationProvider(AccelerationProvider accelerationProvider) {
+    public void setAccelerationProvider(AccelerationProviderIntf accelerationProvider) {
         this.accelerationProvider = accelerationProvider;
     }
 //</editor-fold>

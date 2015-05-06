@@ -15,33 +15,37 @@ import java.util.ArrayList;
  */
 public class BlockLetterPart extends Block implements ConnectionListenerIntf {
 
+//<editor-fold defaultstate="collapsed" desc="Constructors">
     {
         connectionListeners = new ArrayList<>();
     }
-    
+
     public BlockLetterPart(int x, int y, int width, int height) {
         super(x, y, width, height, false);
     }
+//</editor-fold>
 
+//<editor-fold defaultstate="collapsed" desc="Properties">
     @Override
-    public void setLocation(Point location){
+    public void setLocation(Point location) {
         super.setLocation(location);
         onAfterUpdatePosition();
     }
-    
+
     @Override
-    public void setLocation(int x, int y){
+    public void setLocation(int x, int y) {
         super.setLocation(x, y);
         onAfterUpdatePosition();
     }
-    
-    private void onAfterUpdatePosition(){
+
+    private void onAfterUpdatePosition() {
         connectionListeners.stream().forEach((listener) -> {
             listener.onUpdate(this);
         });
     }
-    
-    
+//</editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="Connection Listeners">
     private ArrayList<ConnectionListenerIntf> connectionListeners;
 
     /**
@@ -57,13 +61,14 @@ public class BlockLetterPart extends Block implements ConnectionListenerIntf {
     public void registerConnectionListeners(ConnectionListenerIntf listener) {
         connectionListeners.add(listener);
     }
-    
+
     /**
      * @param listener the ConnectionListenter to add
      */
     public void deregisterConnectionListeners(ConnectionListenerIntf listener) {
         connectionListeners.remove(listener);
     }
+//</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="ConnectionListenerIntf">
     private ConnectionUpdateHandlerIntf connectionUpdateHandler;
@@ -81,14 +86,13 @@ public class BlockLetterPart extends Block implements ConnectionListenerIntf {
     public void setConnectionUpdateHandler(ConnectionUpdateHandlerIntf connectionUpdateHandler) {
         this.connectionUpdateHandler = connectionUpdateHandler;
     }
-    
+
     @Override
     public void onUpdate(Rectangle connectorRect) {
-        if (getConnectionUpdateHandler() != null){
+        if (getConnectionUpdateHandler() != null) {
             getConnectionUpdateHandler().onUpdate(connectorRect, this);
         }
     }
 //</editor-fold>
 
-    
 }
