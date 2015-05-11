@@ -48,6 +48,8 @@ public class Level implements AccelerationProviderIntf {
                 }
 
                 level.setAcceleration(new Vector2D(0, 2));
+                //levletterI.setAccelerationProvider(level.acceleration);
+                
                 break;
 
             
@@ -174,6 +176,7 @@ public class Level implements AccelerationProviderIntf {
      */
     public void setAcceleration(Vector2D acceleration) {
         this.acceleration = acceleration;
+        this.letterI.setAccelerationProvider(this);
     }
 
     /**

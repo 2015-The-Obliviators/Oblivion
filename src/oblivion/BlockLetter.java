@@ -6,10 +6,8 @@
 package oblivion;
 
 import environment.Velocity;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 /**
@@ -89,8 +87,12 @@ public abstract class BlockLetter {
 
     public void move(int x, int y) {
         Point newPosition = (Point) getPosition().clone();
-        newPosition.x += x;
-        newPosition.y += y;
+        if (!hBlocked){
+            newPosition.x += x;            
+        }
+        if (!vBlocked){
+            newPosition.y += y;
+        }
         setPosition(newPosition);
     }
 
