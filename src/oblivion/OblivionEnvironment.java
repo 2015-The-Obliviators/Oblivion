@@ -17,6 +17,16 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Map;
+import javax.sound.sampled.Clip;
+import audio.Audio;
+import audio.AudioEvent;
+import audio.AudioEventListenerIntf;
+import audio.SoundManager;
+import audio.Source;
+import audio.Track;
+import audio.Playlist;
 
 /**
  *
@@ -25,11 +35,14 @@ import java.awt.event.MouseEvent;
 class OblivionEnvironment extends Environment {
 
     private GameState gameLevel = GameState.START;
-    private Level level;
-
+    
 //    private Clip clip;
 //    private ArrayList<Barrier> barriers;
 //    private ArrayList<Letter> letters;
+
+    private SoundManager soundManager;
+    private AudioEventListenerIntf audioEventListener;
+    private Level level;
 
 //    BlockLetterI letterI;
 
@@ -37,20 +50,40 @@ class OblivionEnvironment extends Environment {
     public void initializeEnvironment() {
         this.setBackground(ResourceTools.loadImageFromResource("resources/starstree.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
         
-            AudioPlayer.play("/resources/sadnessMusic.wav", 3);
+            Playlist myPlaylist = new Playlist(getTracks());
+        soundManager = new SoundManager(myPlaylist, new AudioEventListener());
     }
 
     @Override
     public void timerTaskHandler() {
         checkIntersections();
-
-        if ((level != null) && (level.getLetterI() != null)) {
-//            for (Letter letter : level.getLetters()) {
-                level.getLetterI().move();
-//            }
-        }
     }
 
+    private static final String SAD_SOUND = "Sad";
+    private static final String WIN_SOUND = "Win";
+    private static final String JUMP_SOUND = "Jump";
+    private static final String DOWN_SOUND = "Down";
+
+    private ArrayList<Track> getTracks() {
+        ArrayList<Track> tracks = new ArrayList<>();
+
+        tracks.add(new Track(SAD_SOUND, Source.RESOURCE, "/resources/sadnessMusic.wav"));
+        tracks.add(new Track(WIN_SOUND, Source.RESOURCE, "/resources/win.wav"));
+        tracks.add(new Track(JUMP_SOUND, Source.RESOURCE, "/resources/mario_jumping.wav"));
+        tracks.add(new Track(DOWN_SOUND, Source.RESOURCE, "/resources/down.wav"));
+
+        return tracks;
+
+    }
+
+    private class AudioEventListener implements AudioEventListenerIntf {
+
+        @Override
+        public void onAudioEvent(AudioEvent event, String trackName) {
+
+        }
+
+    }
     private void checkIntersections() {
         if (level != null) {
             boolean letterVBlocked;
@@ -99,19 +132,15 @@ class OblivionEnvironment extends Environment {
             }
         }
     }
-
     int speed = 6;
 
     @Override
-    public void keyPressedHandler(KeyEvent e) {
+    public void keyPressedHandler(KeyEvent e
+    ) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//            level.getLetterI().stream().forEach((letter) -> {
-                level.getLetterI().move(Direction.LEFT, speed);
-//            });
+            level.getLetterI().move(Direction.LEFT, speed);
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//            for (Letter letter : level.getLetters()) {
-                level.getLetterI().move(Direction.RIGHT, speed);
-//            }
+            level.getLetterI().move(Direction.RIGHT, speed);
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             if ((level != null) && (level.getLetterI() != null)) {
                 level.getLetterI().grow(BlockLetterI.Direction.UP);
@@ -136,9 +165,14 @@ class OblivionEnvironment extends Environment {
         } else if (e.getKeyCode() == KeyEvent.VK_U) {
             gameLevel = GameState.PLAYING;
             level = Level.getLevel(4);
+        } else if (e.getKeyCode() == KeyEvent.VK_3) {
+            soundManager.play(WIN_SOUND);
+        } else if (e.getKeyCode() == KeyEvent.VK_4) {
+            soundManager.play(JUMP_SOUND);
+        } else if (e.getKeyCode() == KeyEvent.VK_5) {
+            soundManager.play(DOWN_SOUND);
         }
     }
-    
 
     @Override
     public void keyReleasedHandler(KeyEvent e) {
@@ -151,7 +185,8 @@ class OblivionEnvironment extends Environment {
     }
 
     @Override
-    public void paintEnvironment(Graphics graphics) {
+    public void paintEnvironment(Graphics graphics
+    ) {
         Graphics2D g2d = (Graphics2D) graphics;
         
         switch (gameLevel) {
@@ -214,14 +249,14 @@ class OblivionEnvironment extends Environment {
 
                 if (level != null && (level.getLetterI()) != null) {
 //                    for (Letter letter : level.getLetterI()) {
-                        level.getLetterI().paint(graphics);
+                    level.getLetterI().paint(graphics);
 //                    }
                 }
 
                 if (level != null && (level.getBarriers()) != null) {
                     for (Barrier barrier : level.getBarriers()) {
                         barrier.paint(graphics);
-                       
+
                     }
 
 //                    if (level != null) {
