@@ -22,6 +22,13 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.sound.sampled.Clip;
+import audio.Audio;
+import audio.AudioEvent;
+import audio.AudioEventListenerIntf;
+import audio.SoundManager;
+import audio.Source;
+import audio.Track;
+import audio.Playlist;
 
 /**
  *
@@ -35,104 +42,57 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
     private ArrayList<Barrier> barriers;
     private ArrayList<Letter> letters;
 
+    private SoundManager soundManager;
+    private AudioEventListenerIntf audioEventListener;
 
     private Level level;
     BlockLetterI letterI;
 
-//    private ArrayList<Letter> constraints;
-    {
-//        barriers = new ArrayList<>();
-//
-//        barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
-//        barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-//
-////      barriers.add(new Barrier(new Point(100, 10), 2, 200, BarrierType.WALL));
-//        letters = new ArrayList<>();
-//        letters.add(new LetterI(new Point(0, 300), new Velocity(0, 0)));
-//
-//        for (Letter letter : letters) {
-//            letter.setAccelerationProvider(this);
-//        }
+    @Override
+    public void initializeEnvironment() {
+        Playlist myPlaylist = new Playlist(getTracks());
+        soundManager = new SoundManager(myPlaylist, new AudioEventListener());
+    }
+
+    private static final String SAD_SOUND = "Sad";
+    private static final String WIN_SOUND = "Win";
+    private static final String JUMP_SOUND = "Jump";
+    private static final String DOWN_SOUND = "Down";
+
+    private ArrayList<Track> getTracks() {
+        ArrayList<Track> tracks = new ArrayList<>();
+
+        tracks.add(new Track(SAD_SOUND, Source.RESOURCE, "/resources/sadnessMusic.wav"));
+        tracks.add(new Track(WIN_SOUND, Source.RESOURCE, "/resources/win.wav"));
+        tracks.add(new Track(JUMP_SOUND, Source.RESOURCE, "/resources/mario_jumping.wav"));
+        tracks.add(new Track(DOWN_SOUND, Source.RESOURCE, "/resources/down.wav"));
+
+        return tracks;
 
     }
 
-    @Override
-    public void initializeEnvironment() {
-        this.setBackground(ResourceTools.loadImageFromResource("resources/starstree.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-        
-            AudioPlayer.play("/resources/sadnessMusic.wav", 3);
-            
-        
-        
-//        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    private class AudioEventListener implements AudioEventListenerIntf {
+
+        @Override
+        public void onAudioEvent(AudioEvent event, String trackName) {
+
+        }
+
     }
 
     @Override
     public void timerTaskHandler() {
-//        checkIntersections();
 
-        if ((level != null) && (level.getLetterI() != null)) {
-//            for (Letter letter : level.getLetters()) {
-                level.getLetterI().move();
-//            }
-        }
     }
-
-//    private void checkIntersections() {
-//        if (level != null) {
-//            boolean letterVBlocked = false;
-//            boolean letterHBlocked = false;
-//
-////            for (Letter letter : level.getLetterI()) {
-//                letterVBlocked = false;
-//                letterHBlocked = false;
-//
-//                for (Barrier barrier : level.getBarriers()) {
-//                    for (Map.Entry<String, ChildBarrier> letterBarrier : level.getLetterI().getBarriers()) {
-//                        if (barrier.intersects(letterBarrier.getValue())) {
-//                        // assess the nature of the intersection (barrier type) 
-//                            // stop the appropriate motion
-//                            if (barrier.getType() == BarrierType.FLOOR) {
-//                                if (letterBarrier.getValue().getType() == BarrierType.CEILING) {
-//                                    letterVBlocked |= true;
-//                                }
-//                            }
-//                            if (barrier.getType() == BarrierType.CEILING) {
-//                                if (letterBarrier.getValue().getType() == BarrierType.FLOOR) {
-//                                    letterVBlocked |= true;
-//                                }
-//                            }
-//                            if (barrier.getType() == BarrierType.WALL) {
-//                                if (letterBarrier.getValue().getType() == BarrierType.WALL) {
-//                                    letterHBlocked |= true;
-//                                }
-//                            }
-////                        }
-//                    }
-//                }
-//
-//                letter.setVBlocked(letterVBlocked);
-//                letter.setHBlocked(letterHBlocked);
-//                //optimization... don't need to check other barriers if blocked
-////            if (letterBlocked) {
-////                break;
-////            }
-//            }
-//        }
-//    }
-
     int speed = 6;
 
     @Override
-    public void keyPressedHandler(KeyEvent e) {
+    public void keyPressedHandler(KeyEvent e
+    ) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//            level.getLetterI().stream().forEach((letter) -> {
-                level.getLetterI().move(Direction.LEFT, speed);
-//            });
+            level.getLetterI().move(Direction.LEFT, speed);
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//            for (Letter letter : level.getLetters()) {
-                level.getLetterI().move(Direction.RIGHT, speed);
-//            }
+            level.getLetterI().move(Direction.RIGHT, speed);
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             if ((level != null) && (level.getLetterI() != null)) {
                 level.getLetterI().grow(BlockLetterI.Direction.UP);
@@ -154,23 +114,31 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
         } else if (e.getKeyCode() == KeyEvent.VK_I) {
             gameLevel = GameState.PLAYING;
             level = Level.getLevel(3);
-        }else if (e.getKeyCode() == KeyEvent.VK_U) {
+        } else if (e.getKeyCode() == KeyEvent.VK_U) {
             gameLevel = GameState.PLAYING;
             level = Level.getLevel(4);
+        } else if (e.getKeyCode() == KeyEvent.VK_3) {
+            soundManager.play(WIN_SOUND);
+        } else if (e.getKeyCode() == KeyEvent.VK_4) {
+            soundManager.play(JUMP_SOUND);
+        } else if (e.getKeyCode() == KeyEvent.VK_5) {
+            soundManager.play(DOWN_SOUND);
         }
     }
-    
 
     @Override
-    public void keyReleasedHandler(KeyEvent e) {
+    public void keyReleasedHandler(KeyEvent e
+    ) {
     }
 
     @Override
-    public void environmentMouseClicked(MouseEvent e) {
+    public void environmentMouseClicked(MouseEvent e
+    ) {
     }
 
     @Override
-    public void paintEnvironment(Graphics graphics) {
+    public void paintEnvironment(Graphics graphics
+    ) {
         Graphics2D g2d = (Graphics2D) graphics;
         switch (gameLevel) {
 
@@ -233,14 +201,14 @@ class OblivionEnvironment extends Environment implements AccelerationProvider {
 
                 if (level != null && (level.getLetterI()) != null) {
 //                    for (Letter letter : level.getLetterI()) {
-                        level.getLetterI().paint(graphics);
+                    level.getLetterI().paint(graphics);
 //                    }
                 }
 
                 if (level != null && (level.getBarriers()) != null) {
                     for (Barrier barrier : level.getBarriers()) {
                         barrier.paint(graphics);
-                       
+
                     }
 
 //                    if (level != null) {
