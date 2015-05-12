@@ -5,8 +5,11 @@
  */
 package oblivion;
 
+import images.ResourceTools;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -25,11 +28,17 @@ public class Level implements AccelerationProviderIntf {
         switch (levelNumber) {
             case 1:
                 level.barriers.clear();
-
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
                 
+                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/starstree.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                
+                level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
+                level.setTextColor(new Color(230, 230, 230, 75));
+                level.setTextX(100);
+                level.setTextY(75);
                 level.setText("Use the left and right arrow keys to move");
+                
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0, 125));
                 }
@@ -41,14 +50,18 @@ public class Level implements AccelerationProviderIntf {
                 level.barriers.clear();
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-                level.barriers.add(new Barrier(new Point(350, 100), 400, 275, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(350, 100), 400, 325, BarrierType.WALL));
                 
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0, 110));
                 }
+                level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
+                level.setTextColor(new Color(230, 230, 230, 75));
+                level.setTextX(100);
+                level.setTextY(75);
+                level.setText("Use the up and down arrows to grow and shrink");
 
                 level.setAcceleration(new Vector2D(0, 2));
-                //levletterI.setAccelerationProvider(level.acceleration);
                 
                 break;
 
@@ -119,7 +132,6 @@ public class Level implements AccelerationProviderIntf {
     
     {
         barriers = new ArrayList<>();
-//        letters = new ArrayList<>();
         text = "";
         acceleration = new Vector2D(0, 0);
         setLetterI(new BlockLetterI(100, 100, 100, 150, false, this));
@@ -129,48 +141,64 @@ public class Level implements AccelerationProviderIntf {
     private ArrayList<Barrier> barriers;
     private Vector2D acceleration;
     private String text = "";
-//    private ArrayList<Letter> letters;
-//    private ArrayList<Block> blocks;
+    private Color TextColor;
+    private Font TextFont;
+    private int TextX;
+    private int TextY;
     private BlockLetterI letterI;
+    private Image backgroundImage;
     
-    private int textX;
-    private int textY;
 
+//<editor-fold defaultstate="collapsed" desc="Properties">
+    
+    /**
+     * @return the backgroundImage
+     */
+    public Image getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    /**
+     * @param backgroundImage the backgroundImage to set
+     */
+    public void setBackgroundImage(Image backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
     /**
      * @return the levelNumber
      */
     public int getLevelNumber() {
         return levelNumber;
     }
-
+    
     /**
      * @param levelNumber the levelNumber to set
      */
     public void setLevelNumber(int levelNumber) {
         this.levelNumber = levelNumber;
     }
-
+    
     /**
      * @return the barriers
      */
     public ArrayList<Barrier> getBarriers() {
         return barriers;
     }
-
+    
     /**
      * @param barriers the barriers to set
      */
     public void setBarriers(ArrayList<Barrier> barriers) {
         this.barriers = barriers;
     }
-
+    
     /**
      * @return the acceleration
      */
     public Vector2D getAcceleration() {
         return acceleration;
     }
-
+    
     /**
      * @param acceleration the acceleration to set
      */
@@ -178,37 +206,92 @@ public class Level implements AccelerationProviderIntf {
         this.acceleration = acceleration;
         this.letterI.setAccelerationProvider(this);
     }
-
+    
     /**
      * @return the text
      */
     public String getText() {
         return text;
     }
-
+    
     /**
      * @param text the text to set
      */
     public void setText(String text) {
         this.text = text;
     }
-
+    
     /**
      * @return the letterI
      */
     public BlockLetterI getLetterI() {
         return letterI;
     }
-
+    
     /**
      * @param letterI the letterI to set
      */
     public void setLetterI(BlockLetterI letterI) {
         this.letterI = letterI;
     }
-
-    void drawText(Graphics graphics) {
-        graphics.drawString(text, textX, textY);
+    
+    
+    /**
+     * @return the TextColor
+     */
+    public Color getTextColor() {
+        return TextColor;
     }
+    
+    /**
+     * @param TextColor the TextColor to set
+     */
+    public void setTextColor(Color TextColor) {
+        this.TextColor = TextColor;
+    }
+    
+    /**
+     * @return the TextFont
+     */
+    public Font getTextFont() {
+        return TextFont;
+    }
+    
+    /**
+     * @param TextFont the TextFont to set
+     */
+    public void setTextFont(Font TextFont) {
+        this.TextFont = TextFont;
+    }
+    
+    /**
+     * @return the TextX
+     */
+    public int getTextX() {
+        return TextX;
+    }
+    
+    /**
+     * @param TextX the TextX to set
+     */
+    public void setTextX(int TextX) {
+        this.TextX = TextX;
+    }
+    
+    /**
+     * @return the TextY
+     */
+    public int getTextY() {
+        return TextY;
+    }
+    
+    /**
+     * @param TextY the TextY to set
+     */
+    public void setTextY(int TextY) {
+        this.TextY = TextY;
+    }
+//</editor-fold>
+
 
 }
