@@ -20,13 +20,13 @@ public final class BlockLetterI extends BlockLetter {
             AccelerationProviderIntf accelerationProvider) {
         super(x, y, width, height, stationary, accelerationProvider);
         
-        topBar = new BlockLetterPart(x, y, width, height / 5);
-        stem = new BlockLetterPart(x, y, width / 3, height * 3 / 5);
-        bottomBar = new BlockLetterPart(x, y, width, height / 5);
+        topBar = new BlockLetterPart(x, y, width / 2, height / 10);
+        stem = new BlockLetterPart(x, y, width / 6, height * 6 / 10);
+        bottomBar = new BlockLetterPart(x, y, width / 2, height / 10);
         
-        topBar.setFillColor(Color.YELLOW);
+        topBar.setFillColor(Color.BLUE);
         stem.setFillColor(Color.BLUE);
-        bottomBar.setFillColor(Color.CYAN);
+        bottomBar.setFillColor(Color.BLUE);
         
         getParts().add(topBar);
         getParts().add(stem);
@@ -74,6 +74,7 @@ public final class BlockLetterI extends BlockLetter {
         } else {
             setPosition(getPosition().x, getPosition().y);
         }
+        setVBlocked(false);
     }
 //</editor-fold>
        
