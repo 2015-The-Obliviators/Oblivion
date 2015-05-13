@@ -33,7 +33,7 @@ class OblivionEnvironment extends Environment {
 //    BlockLetterI letterI;
     @Override
     public void initializeEnvironment() {
-        this.setBackground(level.getBackgroundImage());
+        this.setBackground(ResourceTools.loadImageFromResource("resources/starstree.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
 
         AudioPlayer.play("/resources/sadnessMusic.wav", 3);
     }
@@ -200,7 +200,7 @@ class OblivionEnvironment extends Environment {
                         RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.rotate(Math.toRadians(0));
-                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                this.setBackground(level.getBackgroundImage());
               
                 if (level != null && (level.getLetterI()) != null) {
                     level.getLetterI().paint(graphics);
