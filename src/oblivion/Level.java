@@ -24,6 +24,9 @@ public class Level implements AccelerationProviderIntf {
         
         //default gravity acceleration
         level.setAcceleration(new Vector2D(0, 2));
+        
+        //TODO: remove this when the background images are fixed/available
+        level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
 
         switch (levelNumber) {
             case 1:
@@ -31,7 +34,7 @@ public class Level implements AccelerationProviderIntf {
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
                 
-                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/starryforest.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+//                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/starryforest.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
                 
                 level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
                 level.setTextColor(new Color(230, 230, 230, 75));
@@ -55,7 +58,9 @@ public class Level implements AccelerationProviderIntf {
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0));
                 }
-                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/hubble.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+
+//                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/hubble.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                
                 level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
                 level.setTextColor(new Color(230, 230, 230, 75));
                 level.setTextX(100);
@@ -75,7 +80,7 @@ public class Level implements AccelerationProviderIntf {
                 level.barriers.add(new Barrier(new Point(300, 225), 50, 50, BarrierType.WALL));
                 level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.WALL));
                 
-                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/moons.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+  //            level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/moons.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
 
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0));
@@ -100,7 +105,7 @@ public class Level implements AccelerationProviderIntf {
                 level.barriers.add(new Barrier(new Point(550, 420), 30, 80, BarrierType.WALL));
                 level.barriers.add(new Barrier(new Point(600, 220), 300, 400, BarrierType.WALL));
                 
-                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/greystars.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+//                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/greystars.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
 
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0));   
