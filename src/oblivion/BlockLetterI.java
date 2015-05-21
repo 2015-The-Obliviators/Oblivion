@@ -74,7 +74,7 @@ public final class BlockLetterI extends BlockLetter {
         } else {
             setPosition(getPosition().x, getPosition().y);
         }
-        setVBlocked(false);
+//        this.getAccelerationProvider();
     }
 //</editor-fold>
        
