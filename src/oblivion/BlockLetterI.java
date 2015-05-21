@@ -63,6 +63,8 @@ public final class BlockLetterI extends BlockLetter {
         } else {
             setPosition(getPosition().x, getPosition().y);
         }
+
+        unblock();
     }
     
     @Override
@@ -74,13 +76,13 @@ public final class BlockLetterI extends BlockLetter {
         } else {
             setPosition(getPosition().x, getPosition().y);
         }
-//        this.getAccelerationProvider();
+
+        unblock();
     }
 //</editor-fold>
        
 //<editor-fold defaultstate="collapsed" desc="Properties">
     private BlockLetterPart topBar, stem, bottomBar;
-    
     
     /**
      * @param position the position to set

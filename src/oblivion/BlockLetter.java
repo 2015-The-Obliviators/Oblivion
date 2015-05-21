@@ -105,10 +105,10 @@ public abstract class BlockLetter {
     public abstract void shrink(Direction direction);
 //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc="Painting">
-    public void paint(Graphics graphics) {
+//<editor-fold defaultstate="collapsed" desc="Drawing">
+    public void draw(Graphics graphics) {
         getParts().stream().forEach((part) -> {
-            part.paint(graphics);
+            part.draw(graphics);
         });
     }
 //</editor-fold>
@@ -159,9 +159,9 @@ public abstract class BlockLetter {
     public void setVBlocked(boolean blocked) {
         this.vBlocked = blocked;
 
-        if (blocked) {
-            stop();
-        }
+//        if (blocked) {
+//            stop();
+//        }
     }
 
     /**
@@ -177,9 +177,17 @@ public abstract class BlockLetter {
     public void setHBlocked(boolean blocked) {
         this.hBlocked = blocked;
 
-        if (blocked) {
-            stop();
-        }
+//        if (blocked) {
+//            stop();
+//        }
+    }
+
+    /**
+     * remove the horizontal and vertical blocks
+     */
+    public void unblock() {
+        hBlocked = false;
+        vBlocked = false;
     }
 
     /**
