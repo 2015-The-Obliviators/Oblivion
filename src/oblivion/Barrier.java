@@ -24,7 +24,7 @@ public class Barrier extends Rectangle {
 //</editor-fold>
     
 //<editor-fold defaultstate="collapsed" desc="Methods">
-    public void paint(Graphics graphics){
+    public void draw(Graphics graphics){
         graphics.setColor(getColor());
         graphics.fillRect(x, y, width, height);
     }

@@ -203,13 +203,13 @@ class OblivionEnvironment extends Environment {
                 this.setBackground(level.getBackgroundImage());
               
                 if (level != null && (level.getLetterI()) != null) {
-                    level.getLetterI().paint(graphics);
+                    level.getLetterI().draw(graphics);
 
                 }
 
                 if (level != null && (level.getBarriers()) != null) {
                     for (Barrier barrier : level.getBarriers()) {
-                        barrier.paint(graphics);
+                        barrier.draw(graphics);
 
                     }
                     

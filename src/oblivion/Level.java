@@ -19,19 +19,23 @@ import java.util.ArrayList;
  */
 public class Level implements AccelerationProviderIntf {
 
+//<editor-fold defaultstate="collapsed" desc="Constructors and Factory Methods">
     public static Level getLevel(int levelNumber) {
         Level level = new Level();
         
         //default gravity acceleration
         level.setAcceleration(new Vector2D(0, 2));
-
+        
+        //TODO: remove this when the background images are fixed/available
+        level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+        
         switch (levelNumber) {
             case 1:
                 level.barriers.clear();
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
                 
-                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/starryforest.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+//                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/starryforest.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
                 
                 level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
                 level.setTextColor(new Color(230, 230, 230, 75));
@@ -42,10 +46,10 @@ public class Level implements AccelerationProviderIntf {
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0));
                 }
-
+                
                 level.setAcceleration(new Vector2D(0, 1));
                 break;
-
+                
             case 2:
                 level.barriers.clear();
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
@@ -55,18 +59,20 @@ public class Level implements AccelerationProviderIntf {
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0));
                 }
-                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/hubble.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                
+//                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/hubble.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                
                 level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
                 level.setTextColor(new Color(230, 230, 230, 75));
                 level.setTextX(100);
                 level.setTextY(75);
                 level.setText("Use the up and down arrows to grow and shrink");
-
+                
                 level.setAcceleration(new Vector2D(0, 2));
                 
                 break;
-
-            
+                
+                
             case 3:
                 level.barriers.clear();
                 
@@ -75,8 +81,8 @@ public class Level implements AccelerationProviderIntf {
                 level.barriers.add(new Barrier(new Point(300, 225), 50, 50, BarrierType.WALL));
                 level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.WALL));
                 
-                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/moons.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-
+                //            level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/moons.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0));
                 }
@@ -85,13 +91,13 @@ public class Level implements AccelerationProviderIntf {
                 level.setTextX(100);
                 level.setTextY(75);
                 level.setText("Can you chin up?");
-
+                
                 level.setAcceleration(new Vector2D(0, 2));
                 break;
-                 
+                
             case 4:
                 level.barriers.clear();
-          
+                
                 level.setAcceleration(new Vector2D(0, 2));
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
@@ -100,10 +106,10 @@ public class Level implements AccelerationProviderIntf {
                 level.barriers.add(new Barrier(new Point(550, 420), 30, 80, BarrierType.WALL));
                 level.barriers.add(new Barrier(new Point(600, 220), 300, 400, BarrierType.WALL));
                 
-                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/greystars.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-
+//                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/greystars.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                
                 for (Barrier barrier : level.barriers){
-                    barrier.setColor(new Color (0, 0, 0));   
+                    barrier.setColor(new Color (0, 0, 0));
                 }
                 
                 level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
@@ -111,40 +117,39 @@ public class Level implements AccelerationProviderIntf {
                 level.setTextX(100);
                 level.setTextY(75);
                 level.setText("I wonder what that button does...");
-            break;
+                break;
                 
             case 5:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
-            break;
+                break;
                 
             case 6:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
-            break;
+                break;
                 
             case 7:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
-            break;
+                break;
                 
             case 8:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
                 
-            break;
+                break;
                 
             case 9:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.setBarriers(new ArrayList<>());
         }
-
+        
         return level;
     }
-
     
     {
         barriers = new ArrayList<>();
@@ -152,7 +157,9 @@ public class Level implements AccelerationProviderIntf {
         acceleration = new Vector2D(0, 0);
         setLetterI(new BlockLetterI(100, 100, 100, 150, false, this));
     }
+//</editor-fold>
     
+//<editor-fold defaultstate="collapsed" desc="Properties">
     private int levelNumber;
     private ArrayList<Barrier> barriers;
     private Vector2D acceleration;
@@ -163,9 +170,6 @@ public class Level implements AccelerationProviderIntf {
     private int TextY;
     private BlockLetterI letterI;
     private Image backgroundImage;
-    
-
-//<editor-fold defaultstate="collapsed" desc="Properties">
     
     /**
      * @return the backgroundImage
