@@ -47,13 +47,13 @@ public class Block extends Rectangle {
     }
 //</editor-fold>
     
-//<editor-fold defaultstate="collapsed" desc="Painting">
+//<editor-fold defaultstate="collapsed" desc="Drawing">
     private Color fillColor;
     private Color borderColor;
     
     private boolean drawBarriers;
     
-    public void paint(Graphics graphics){
+    public void draw(Graphics graphics){
         graphics.setColor(getFillColor());
         graphics.fillRect(x, y, width, height);
         
@@ -62,7 +62,7 @@ public class Block extends Rectangle {
         
         if (isDrawBarriers()){
             for(Barrier barrier : barriers){
-                barrier.paint(graphics);
+                barrier.draw(graphics);
             }
         }
     }

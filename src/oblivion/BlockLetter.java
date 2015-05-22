@@ -6,10 +6,8 @@
 package oblivion;
 
 import environment.Velocity;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 /**
@@ -89,8 +87,12 @@ public abstract class BlockLetter {
 
     public void move(int x, int y) {
         Point newPosition = (Point) getPosition().clone();
-        newPosition.x += x;
-        newPosition.y += y;
+        if (!hBlocked){
+            newPosition.x += x;            
+        }
+        if (!vBlocked){
+            newPosition.y += y;
+        }
         setPosition(newPosition);
     }
 
@@ -103,10 +105,10 @@ public abstract class BlockLetter {
     public abstract void shrink(Direction direction);
 //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc="Painting">
-    public void paint(Graphics graphics) {
+//<editor-fold defaultstate="collapsed" desc="Drawing">
+    public void draw(Graphics graphics) {
         getParts().stream().forEach((part) -> {
-            part.paint(graphics);
+            part.draw(graphics);
         });
     }
 //</editor-fold>
@@ -157,9 +159,9 @@ public abstract class BlockLetter {
     public void setVBlocked(boolean blocked) {
         this.vBlocked = blocked;
 
-        if (blocked) {
-            stop();
-        }
+//        if (blocked) {
+//            stop();
+//        }
     }
 
     /**
@@ -175,9 +177,17 @@ public abstract class BlockLetter {
     public void setHBlocked(boolean blocked) {
         this.hBlocked = blocked;
 
-        if (blocked) {
-            stop();
-        }
+//        if (blocked) {
+//            stop();
+//        }
+    }
+
+    /**
+     * remove the horizontal and vertical blocks
+     */
+    public void unblock() {
+        hBlocked = false;
+        vBlocked = false;
     }
 
     /**

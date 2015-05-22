@@ -18,9 +18,6 @@ import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Map;
-import javax.sound.sampled.Clip;
-import audio.Audio;
 import audio.AudioEvent;
 import audio.AudioEventListenerIntf;
 import audio.SoundManager;
@@ -45,13 +42,14 @@ class OblivionEnvironment extends Environment {
     private Level level;
 
 //    BlockLetterI letterI;
-
     @Override
     public void initializeEnvironment() {
         this.setBackground(ResourceTools.loadImageFromResource("resources/starstree.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
         
-            Playlist myPlaylist = new Playlist(getTracks());
+        Playlist myPlaylist = new Playlist(getTracks());
         soundManager = new SoundManager(myPlaylist, new AudioEventListener());
+
+        AudioPlayer.play("/resources/sadnessMusic.wav", 3);
     }
 
     @Override
@@ -74,55 +72,60 @@ class OblivionEnvironment extends Environment {
 
         return tracks;
 
+//        if ((level != null) && (level.getLetterI() != null)) {
+////            for (Letter letter : level.getLetters()) {
+//            level.getLetterI().move();
+////            }
+//        }
     }
 
     private class AudioEventListener implements AudioEventListenerIntf {
 
-        @Override
+//        @Override
         public void onAudioEvent(AudioEvent event, String trackName) {
 
         }
 
     }
+
     private void checkIntersections() {
         if (level != null) {
             boolean letterVBlocked;
             boolean letterHBlocked;
 
 //            for (Letter letter : level.getLetterI()) {
-                letterVBlocked = false;
-                letterHBlocked = false;
+            letterVBlocked = false;
+            letterHBlocked = false;
 
-                for (Barrier barrier : level.getBarriers()) {
+            for (Barrier barrier : level.getBarriers()) {
 
-                    for (Barrier letterBarrier : level.getLetterI().getBarriers()) {
-                        if (barrier.intersects(letterBarrier)) {
+                for (Barrier letterBarrier : level.getLetterI().getBarriers()) {
+                    if (barrier.intersects(letterBarrier)) {
                         // assess the nature of the intersection (barrier type) 
-                            // stop the appropriate motion
+                        // stop the appropriate motion
 
 //                            System.out.println(" Intersect");
 //                            System.out.printf("   B [%d, %d, %d, %d] %s\n", barrier.x, barrier.y, barrier.width, barrier.height, barrier.getType().toString());
 //                            System.out.printf("   LB[%d, %d, %d, %d] %s\n", letterBarrier.x, letterBarrier.y, letterBarrier.width, letterBarrier.height, letterBarrier.getType().toString());
-                            
-                            if (barrier.getType() == BarrierType.FLOOR) {
-                                if (letterBarrier.getType() == BarrierType.CEILING) {
-                                    letterVBlocked |= true;
-                                    System.out.println("V Blocked");
-                                    
-                                }
+                        if (barrier.getType() == BarrierType.FLOOR) {
+                            if (letterBarrier.getType() == BarrierType.CEILING) {
+                                letterVBlocked |= true;
+                                System.out.println("V Blocked");
+
                             }
-                            if (barrier.getType() == BarrierType.CEILING) {
-                                if (letterBarrier.getType() == BarrierType.FLOOR) {
-                                    letterVBlocked |= true;
-                                    System.out.println("V Blocked");
-                                }
+                        }
+                        if (barrier.getType() == BarrierType.CEILING) {
+                            if (letterBarrier.getType() == BarrierType.FLOOR) {
+                                letterVBlocked |= true;
+                                System.out.println("V Blocked");
                             }
-                            if (barrier.getType() == BarrierType.WALL) {
-                                if (letterBarrier.getType() == BarrierType.WALL) {
-                                    letterHBlocked |= true;
-                                    System.out.println("H Blocked");
-                                }
+                        }
+                        if (barrier.getType() == BarrierType.WALL) {
+                            if (letterBarrier.getType() == BarrierType.WALL) {
+                                letterHBlocked |= true;
+                                System.out.println("H Blocked");
                             }
+                        }
 //                        }
                     }
                 }
@@ -135,8 +138,7 @@ class OblivionEnvironment extends Environment {
     int speed = 6;
 
     @Override
-    public void keyPressedHandler(KeyEvent e
-    ) {
+    public void keyPressedHandler(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             level.getLetterI().move(Direction.LEFT, speed);
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -176,19 +178,19 @@ class OblivionEnvironment extends Environment {
 
     @Override
     public void keyReleasedHandler(KeyEvent e) {
-    
+
     }
 
     @Override
     public void environmentMouseClicked(MouseEvent e) {
-    
+
     }
 
     @Override
     public void paintEnvironment(Graphics graphics
     ) {
         Graphics2D g2d = (Graphics2D) graphics;
-        
+
         switch (gameLevel) {
             //<editor-fold defaultstate="collapsed" desc="START">
             case START:
@@ -239,36 +241,28 @@ class OblivionEnvironment extends Environment {
                         RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.rotate(Math.toRadians(0));
-                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-//                graphics.setColor(new Color(230, 230, 230, 75));
-//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
-//                graphics.drawString("To Move", 375, 250);
-//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
-//
-//                graphics.drawString("Use the left and right arrow keys to move backwards and forwards.", 25, 300);
-
+                this.setBackground(level.getBackgroundImage());
+              
                 if (level != null && (level.getLetterI()) != null) {
-//                    for (Letter letter : level.getLetterI()) {
-                    level.getLetterI().paint(graphics);
-//                    }
+                    level.getLetterI().draw(graphics);
                 }
 
                 if (level != null && (level.getBarriers()) != null) {
                     for (Barrier barrier : level.getBarriers()) {
-                        barrier.paint(graphics);
+                        barrier.draw(graphics);
 
                     }
+                    
+                    graphics.setFont(level.getTextFont());
+                    graphics.setColor(level.getTextColor());
+                    graphics.drawString(level.getText(), level.getTextX(), level.getTextY());
 
-//                    if (level != null) {
-//                    for (Text text : level.getText()) {
-//                        text.paint(graphics);
-//                    }
+//                   
                 }
 
                 break;
 
 //</editor-fold>
-                
             //<editor-fold defaultstate="collapsed" desc="LEVEL 2">
 //            case LEVEL_2:
 //
@@ -285,7 +279,6 @@ class OblivionEnvironment extends Environment {
 //                break;
 //
 ////</editor-fold>
-                
             //            //<editor-fold defaultstate="collapsed" desc="LEVEL 3">
 //            case LEVEL_3:
 //
