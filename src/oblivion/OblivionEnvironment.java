@@ -32,11 +32,10 @@ import audio.Playlist;
 class OblivionEnvironment extends Environment {
 
     private GameState gameLevel = GameState.START;
-    
+
 //    private Clip clip;
 //    private ArrayList<Barrier> barriers;
 //    private ArrayList<Letter> letters;
-
     private SoundManager soundManager;
     private AudioEventListenerIntf audioEventListener;
     private Level level;
@@ -45,7 +44,7 @@ class OblivionEnvironment extends Environment {
     @Override
     public void initializeEnvironment() {
         this.setBackground(ResourceTools.loadImageFromResource("resources/starstree.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-        
+
         Playlist myPlaylist = new Playlist(getTracks());
         soundManager = new SoundManager(myPlaylist, new AudioEventListener());
 
@@ -55,6 +54,9 @@ class OblivionEnvironment extends Environment {
     @Override
     public void timerTaskHandler() {
         checkIntersections();
+        if ((level != null) && (level.getLetterI() != null)) {
+            level.getLetterI().move();
+        }
     }
 
     private static final String SAD_SOUND = "Sad";
@@ -93,7 +95,6 @@ class OblivionEnvironment extends Environment {
             boolean letterVBlocked;
             boolean letterHBlocked;
 
-//            for (Letter letter : level.getLetterI()) {
             letterVBlocked = false;
             letterHBlocked = false;
 
@@ -110,32 +111,29 @@ class OblivionEnvironment extends Environment {
                         if (barrier.getType() == BarrierType.FLOOR) {
                             if (letterBarrier.getType() == BarrierType.CEILING) {
                                 letterVBlocked |= true;
-                                System.out.println("V Blocked");
-
                             }
                         }
+
                         if (barrier.getType() == BarrierType.CEILING) {
                             if (letterBarrier.getType() == BarrierType.FLOOR) {
                                 letterVBlocked |= true;
-                                System.out.println("V Blocked");
                             }
                         }
+
                         if (barrier.getType() == BarrierType.WALL) {
                             if (letterBarrier.getType() == BarrierType.WALL) {
                                 letterHBlocked |= true;
-                                System.out.println("H Blocked");
                             }
                         }
-//                        }
                     }
                 }
-
-                level.getLetterI().setVBlocked(letterVBlocked);
-                level.getLetterI().setHBlocked(letterHBlocked);
             }
+            
+            level.getLetterI().setVBlocked(letterVBlocked);
+            level.getLetterI().setHBlocked(letterHBlocked);
         }
     }
-    int speed = 6;
+    int speed = 1;
 
     @Override
     public void keyPressedHandler(KeyEvent e) {
@@ -242,7 +240,7 @@ class OblivionEnvironment extends Environment {
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.rotate(Math.toRadians(0));
                 this.setBackground(level.getBackgroundImage());
-              
+
                 if (level != null && (level.getLetterI()) != null) {
                     level.getLetterI().draw(graphics);
                 }
@@ -252,7 +250,7 @@ class OblivionEnvironment extends Environment {
                         barrier.draw(graphics);
 
                     }
-                    
+
                     graphics.setFont(level.getTextFont());
                     graphics.setColor(level.getTextColor());
                     graphics.drawString(level.getText(), level.getTextX(), level.getTextY());

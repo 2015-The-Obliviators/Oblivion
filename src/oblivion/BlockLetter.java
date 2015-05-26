@@ -69,16 +69,16 @@ public abstract class BlockLetter {
 
         switch (direction) {
             case LEFT:
-                x = -1 * distance;
+                x = -3 * distance;
                 break;
             case RIGHT:
-                x = 1 * distance;
+                x = 3 * distance;
                 break;
             case UP:
-                y = -1 * distance;
+                y = -3 * distance;
                 break;
             case DOWN:
-                y = 1 * distance;
+                y = 3 * distance;
                 break;
         }
 
@@ -157,11 +157,10 @@ public abstract class BlockLetter {
      * @param blocked the vBlocked to set
      */
     public void setVBlocked(boolean blocked) {
-        this.vBlocked = blocked;
-
-//        if (blocked) {
-//            stop();
-//        }
+        if (this.vBlocked != blocked){
+            this.vBlocked = blocked;
+            System.out.println("VBlocked = " + blocked);
+        }        
     }
 
     /**
@@ -175,11 +174,10 @@ public abstract class BlockLetter {
      * @param blocked the hBlocked to set
      */
     public void setHBlocked(boolean blocked) {
-        this.hBlocked = blocked;
-
-//        if (blocked) {
-//            stop();
-//        }
+        if (this.hBlocked != blocked){
+            this.hBlocked = blocked;
+            System.out.println("HBlocked = " + blocked);
+        }        
     }
 
     /**

@@ -34,7 +34,8 @@ public class Level implements AccelerationProviderIntf {
                 level.barriers.clear();
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-                
+//                level.barriers.add(new Barrier(new Point(50, 300), 100, 100, BarrierType.WALL));
+
 //                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/starryforest.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
                 
                 level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
@@ -54,7 +55,7 @@ public class Level implements AccelerationProviderIntf {
                 level.barriers.clear();
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-                level.barriers.add(new Barrier(new Point(350, 100), 400, 325, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(350, 100), 400, 325, BarrierType.FLOOR));
                 
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0));
@@ -78,8 +79,10 @@ public class Level implements AccelerationProviderIntf {
                 
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-                level.barriers.add(new Barrier(new Point(300, 225), 50, 50, BarrierType.WALL));
+//                level.barriers.add(new Barrier(new Point(300, 225), 50, 50, BarrierType.FLOOR));
+//                level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.WALL));
+
                 
                 //            level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/moons.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
                 
@@ -154,8 +157,8 @@ public class Level implements AccelerationProviderIntf {
     {
         barriers = new ArrayList<>();
         text = "";
-        acceleration = new Vector2D(0, 0);
-        setLetterI(new BlockLetterI(100, 100, 100, 150, false, this));
+        acceleration = new Vector2D(0, 2);
+        setLetterI(new BlockLetterI(100, 120, 100, 150, false, this));
     }
 //</editor-fold>
     

@@ -61,7 +61,7 @@ public class Block extends Rectangle {
         graphics.drawRect(x, y, width, height);
         
         if (isDrawBarriers()){
-            for(Barrier barrier : barriers){
+            for(Barrier barrier : getBarriers()){
                 barrier.draw(graphics);
             }
         }
@@ -216,7 +216,7 @@ public class Block extends Rectangle {
         }
         
         if (hasRightBarrier()){
-            updatedBarriers.add(new Barrier(new Point(getLocation().x + (width / 2), getLocation().y), width, height / 2, BarrierType.CEILING));
+            updatedBarriers.add(new Barrier(new Point(getLocation().x + (width / 2), getLocation().y), width / 2, height, BarrierType.WALL));
         }
 
         return updatedBarriers;
