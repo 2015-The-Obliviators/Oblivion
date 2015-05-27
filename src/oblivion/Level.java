@@ -169,7 +169,6 @@ public class Level implements AccelerationProviderIntf {
 
 //<editor-fold defaultstate="collapsed" desc="Properties">
     private int levelNumber;
-//    private ArrayList<Barrier> barriers;
     private ArrayList<Block> blocks;
     private Vector2D acceleration;
     private String text = "";
@@ -221,16 +220,10 @@ public class Level implements AccelerationProviderIntf {
         return barriers;
     }
 
-//    /**
-//     * @param barriers the barriers to set
-//     */
-//    public void setBarriers(ArrayList<Barrier> barriers) {
-//        this.barriers = barriers;
-//    }
-
     /**
      * @return the acceleration
      */
+    @Override
     public Vector2D getAcceleration() {
         return acceleration;
     }
@@ -326,7 +319,6 @@ public class Level implements AccelerationProviderIntf {
     public void setTextY(int TextY) {
         this.TextY = TextY;
     }
-//</editor-fold>
 
     /**
      * @return the blocks
@@ -334,5 +326,6 @@ public class Level implements AccelerationProviderIntf {
     public ArrayList<Block> getBlocks() {
         return blocks;
     }
+//</editor-fold>
 
 }

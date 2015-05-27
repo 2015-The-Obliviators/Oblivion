@@ -80,13 +80,22 @@ public abstract class BlockLetter {
     public void move(int x, int y) {
         Point newPosition = (Point) getPosition().clone();
         
-        if (((x < 0) && !isBlocked(Direction.LEFT)) || ((x > 0) && !isBlocked(Direction.RIGHT))) {
+        if ((x < 0) && !isBlocked(Direction.LEFT)) {
             newPosition.x += x;
+            setBlocked(Direction.RIGHT, false);
+        } else if (((x > 0) && !isBlocked(Direction.RIGHT))) {
+            newPosition.x += x;
+            setBlocked(Direction.LEFT, false);
         }
  
-        if (((y < 0) && !isBlocked(Direction.UP)) || ((y > 0) && !isBlocked(Direction.DOWN))) {
+        if ((y < 0) && !isBlocked(Direction.UP)) {
             newPosition.y += y;
+            setBlocked(Direction.DOWN, false);
+        } else if ((y > 0) && !isBlocked(Direction.DOWN)) {
+            newPosition.y += y;
+            setBlocked(Direction.UP, false);
         }
+        
         setPosition(newPosition);
     }
 
@@ -97,8 +106,6 @@ public abstract class BlockLetter {
 
     public abstract void grow();
     public abstract void shrink();
-//    public abstract void grow(Direction direction);
-//    public abstract void shrink(Direction direction);
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="Drawing">
@@ -121,25 +128,25 @@ public abstract class BlockLetter {
 //    private boolean vBlocked = false;
 //    private boolean hBlocked = false;
 
-    private EnumSet<Direction> blocks;
+    private EnumSet<Direction> blockedDirections;
 
     /**
      * @param direction
      * @return the blocked state for the provided direction
      */
     public boolean isBlocked(Direction direction) {
-        return blocks.contains(direction);
+        return blockedDirections.contains(direction);
     }
 
     /**
      * @param direction the direction to add to the blocking list
      * @param blocked
      */
-    public void setBlock(Direction direction, boolean blocked) {
+    public void setBlocked(Direction direction, boolean blocked) {
         if (blocked) {
-            blocks.add(direction);
+            blockedDirections.add(direction);
         } else {
-            blocks.remove(direction);
+            blockedDirections.remove(direction);
         }
     }
 
@@ -147,14 +154,14 @@ public abstract class BlockLetter {
      * @param direction the direction to add to the blocking list
      */
     public void addBlock(Direction direction) {
-        blocks.add(direction);
+        blockedDirections.add(direction);
     }
 
     /**
      * @param direction to release the block from
      */
     public void removeBlock(Direction direction) {
-        blocks.remove(direction);
+        blockedDirections.remove(direction);
     }
 
     /**
@@ -177,14 +184,6 @@ public abstract class BlockLetter {
     public void setAccelerationProvider(AccelerationProviderIntf accelerationProvider) {
         this.accelerationProvider = accelerationProvider;
     }
-
-//    /**
-//     * remove the horizontal and vertical blocks
-//     */
-//    public void unblock() {
-//        hBlocked = false;
-//        vBlocked = false;
-//    }
 
     /**
      * @return the position
@@ -283,8 +282,8 @@ public abstract class BlockLetter {
         setMaxX(1);
         setMaxY(1);
 
-        blocks = EnumSet.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT);
-        blocks.clear();
+        blockedDirections = EnumSet.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT);
+        blockedDirections.clear();
     }
 
     public BlockLetter(int x, int y, int width, int height, boolean stationary,

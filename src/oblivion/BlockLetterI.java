@@ -6,7 +6,6 @@
 package oblivion;
 
 import environment.Direction;
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -25,10 +24,6 @@ public final class BlockLetterI extends BlockLetter {
         stem = new BlockLetterPart(x, y, width / 6, height * 6 / 10);
         bottomBar = new BlockLetterPart(x, y, width / 2, height / 10);
         
-//        topBar.setFillColor(Color.BLUE);
-//        stem.setFillColor(Color.BLUE);
-//        bottomBar.setFillColor(Color.BLUE);
-        
         getParts().add(topBar);
         getParts().add(stem);
         getParts().add(bottomBar);
@@ -37,11 +32,6 @@ public final class BlockLetterI extends BlockLetter {
 //            blockLetterPart.setFillColor(Color.BLUE);
 //            blockLetterPart.setBorderColor(Color.BLUE);
 //        }
-        
-//        getParts().stream().forEach((blockLetterPart) -> {
-//            blockLetterPart.setFillColor(Color.BLUE);
-//            blockLetterPart.setBorderColor(Color.BLUE);
-//        });
         
         stem.setConnectionUpdateHandler(new ConnectionUpdateHandlerIntf() {
             @Override

@@ -144,10 +144,10 @@ class OblivionEnvironment extends Environment {
                     }
                 }
 
-                level.getLetterI().setBlock(Direction.UP, upBlocked);
-                level.getLetterI().setBlock(Direction.DOWN, downBlocked);
-                level.getLetterI().setBlock(Direction.LEFT, leftBlocked);
-                level.getLetterI().setBlock(Direction.RIGHT, rightBlocked);
+                level.getLetterI().setBlocked(Direction.UP, upBlocked);
+                level.getLetterI().setBlocked(Direction.DOWN, downBlocked);
+                level.getLetterI().setBlocked(Direction.LEFT, leftBlocked);
+                level.getLetterI().setBlocked(Direction.RIGHT, rightBlocked);
             }
         }
     }
