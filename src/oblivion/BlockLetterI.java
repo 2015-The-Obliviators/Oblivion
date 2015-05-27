@@ -5,7 +5,7 @@
  */
 package oblivion;
 
-import java.awt.Color;
+import environment.Direction;
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -24,13 +24,14 @@ public final class BlockLetterI extends BlockLetter {
         stem = new BlockLetterPart(x, y, width / 6, height * 6 / 10);
         bottomBar = new BlockLetterPart(x, y, width / 2, height / 10);
         
-        topBar.setFillColor(Color.BLUE);
-        stem.setFillColor(Color.BLUE);
-        bottomBar.setFillColor(Color.BLUE);
-        
         getParts().add(topBar);
         getParts().add(stem);
         getParts().add(bottomBar);
+
+//        for (BlockLetterPart blockLetterPart: getParts()){
+//            blockLetterPart.setFillColor(Color.BLUE);
+//            blockLetterPart.setBorderColor(Color.BLUE);
+//        }
         
         stem.setConnectionUpdateHandler(new ConnectionUpdateHandlerIntf() {
             @Override
@@ -55,29 +56,24 @@ public final class BlockLetterI extends BlockLetter {
 
 //<editor-fold defaultstate="collapsed" desc="Movement Methods">
     @Override
-    public void grow(Direction direction) {
-        stem.height += 1;
-        
-        if (direction == Direction.UP) {
+    public void grow() {
+        if (!isBlocked(Direction.DOWN)){
+            stem.height += 1;
+        } else if (!isBlocked(Direction.UP)) {
+            stem.height += 1;
             setPosition(getPosition().x, getPosition().y - 1);
-        } else {
-            setPosition(getPosition().x, getPosition().y);
         }
-
-        unblock();
     }
     
     @Override
-    public void shrink(Direction direction) {
-        stem.height = Math.max(stem.height -1, 0);
-        
-        if (direction == Direction.UP) {
+    public void shrink() {
+        if (!isBlocked(Direction.DOWN)){
+            stem.height -= 1;
+            setPosition(getPosition().x, getPosition().y - 1);
+        } else if (!isBlocked(Direction.UP)) {
+            stem.height -= 1;
             setPosition(getPosition().x, getPosition().y + 1);
-        } else {
-            setPosition(getPosition().x, getPosition().y);
         }
-
-        unblock();
     }
 //</editor-fold>
        

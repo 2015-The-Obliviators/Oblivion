@@ -10,5 +10,5 @@ package oblivion;
  * @author kevin.lawrence
  */
 public enum BarrierType {
-    FLOOR, CEILING, WALL
+    FLOOR, CEILING, LEFT_WALL, RIGHT_WALL
 }
