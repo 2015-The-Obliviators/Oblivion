@@ -5,10 +5,12 @@
  */
 package oblivion;
 
+import environment.Direction;
 import environment.Velocity;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.EnumSet;
 
 /**
  *
@@ -16,38 +18,18 @@ import java.util.ArrayList;
  */
 public abstract class BlockLetter {
 
-//<editor-fold defaultstate="collapsed" desc="Constructors">
-    {
-        position = new Point(0, 0);
-        velocity = new Velocity(0, 1);
-
-        setParts(new ArrayList<>());
-
-        setMaxX(1);
-        setMaxY(1);
-    }
-
-    public BlockLetter(int x, int y, int width, int height, boolean stationary,
-            AccelerationProviderIntf accelerationProvider) {
-
-        this.accelerationProvider = accelerationProvider;
-    }
-//</editor-fold>
-
 //<editor-fold defaultstate="collapsed" desc="Movement Methods">
-    public static enum Direction {
-        UP, DOWN
-    };
-
     public void accelerate(Vector2D accelerationVector) {
-        if (!isHBlocked()) {
+        if (((accelerationVector.x < 0) && (!isBlocked(Direction.LEFT))) ||
+            ((accelerationVector.x > 0) && (!isBlocked(Direction.RIGHT)))) {
             int x = getVelocity().x + accelerationVector.x;
             if (Math.abs(x) < getMaxX()) {
                 getVelocity().x = x;
             }
         }
 
-        if (!isVBlocked()) {
+        if (((accelerationVector.y < 0) && (!isBlocked(Direction.UP))) ||
+            ((accelerationVector.y > 0) && (!isBlocked(Direction.DOWN)))) {
             int y = getVelocity().y + accelerationVector.y;
             if (Math.abs(y) < getMaxY()) {
                 getVelocity().y = y;
@@ -69,17 +51,27 @@ public abstract class BlockLetter {
 
         switch (direction) {
             case LEFT:
-                x = -1 * distance;
+                if (!isBlocked(Direction.LEFT)){
+                    x = -distance;
+                }
                 break;
+                
             case RIGHT:
-                x = 1 * distance;
+                if (!isBlocked(Direction.RIGHT)){
+                    x = distance;
+                }
                 break;
+                
             case UP:
-                y = -1 * distance;
+                if (!isBlocked(Direction.UP)){
+                    y = -distance;
+                }
                 break;
+                
             case DOWN:
-                y = 1 * distance;
-                break;
+                if (!isBlocked(Direction.DOWN)){
+                    y = distance;
+                }
         }
 
         move(x, y);
@@ -87,10 +79,12 @@ public abstract class BlockLetter {
 
     public void move(int x, int y) {
         Point newPosition = (Point) getPosition().clone();
-        if (!hBlocked){
-            newPosition.x += x;            
+        
+        if (((x < 0) && !isBlocked(Direction.LEFT)) || ((x > 0) && !isBlocked(Direction.RIGHT))) {
+            newPosition.x += x;
         }
-        if (!vBlocked){
+ 
+        if (((y < 0) && !isBlocked(Direction.UP)) || ((y > 0) && !isBlocked(Direction.DOWN))) {
             newPosition.y += y;
         }
         setPosition(newPosition);
@@ -101,8 +95,10 @@ public abstract class BlockLetter {
         velocity.y = 0;
     }
 
-    public abstract void grow(Direction direction);
-    public abstract void shrink(Direction direction);
+    public abstract void grow();
+    public abstract void shrink();
+//    public abstract void grow(Direction direction);
+//    public abstract void shrink(Direction direction);
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="Drawing">
@@ -122,8 +118,44 @@ public abstract class BlockLetter {
     private ArrayList<BlockLetterPart> parts;
     private AccelerationProviderIntf accelerationProvider;
 
-    private boolean vBlocked = false;
-    private boolean hBlocked = false;
+//    private boolean vBlocked = false;
+//    private boolean hBlocked = false;
+
+    private EnumSet<Direction> blocks;
+
+    /**
+     * @param direction
+     * @return the blocked state for the provided direction
+     */
+    public boolean isBlocked(Direction direction) {
+        return blocks.contains(direction);
+    }
+
+    /**
+     * @param direction the direction to add to the blocking list
+     * @param blocked
+     */
+    public void setBlock(Direction direction, boolean blocked) {
+        if (blocked) {
+            blocks.add(direction);
+        } else {
+            blocks.remove(direction);
+        }
+    }
+
+    /**
+     * @param direction the direction to add to the blocking list
+     */
+    public void addBlock(Direction direction) {
+        blocks.add(direction);
+    }
+
+    /**
+     * @param direction to release the block from
+     */
+    public void removeBlock(Direction direction) {
+        blocks.remove(direction);
+    }
 
     /**
      * @return collection of all Barrier objects, constructed form the
@@ -146,49 +178,13 @@ public abstract class BlockLetter {
         this.accelerationProvider = accelerationProvider;
     }
 
-    /**
-     * @return the vBlocked
-     */
-    public boolean isVBlocked() {
-        return vBlocked;
-    }
-
-    /**
-     * @param blocked the vBlocked to set
-     */
-    public void setVBlocked(boolean blocked) {
-        this.vBlocked = blocked;
-
-//        if (blocked) {
-//            stop();
-//        }
-    }
-
-    /**
-     * @return the hBlocked
-     */
-    public boolean isHBlocked() {
-        return hBlocked;
-    }
-
-    /**
-     * @param blocked the hBlocked to set
-     */
-    public void setHBlocked(boolean blocked) {
-        this.hBlocked = blocked;
-
-//        if (blocked) {
-//            stop();
-//        }
-    }
-
-    /**
-     * remove the horizontal and vertical blocks
-     */
-    public void unblock() {
-        hBlocked = false;
-        vBlocked = false;
-    }
+//    /**
+//     * remove the horizontal and vertical blocks
+//     */
+//    public void unblock() {
+//        hBlocked = false;
+//        vBlocked = false;
+//    }
 
     /**
      * @return the position
@@ -232,7 +228,7 @@ public abstract class BlockLetter {
     public AccelerationProviderIntf getAccelerationProvider() {
         return accelerationProvider;
     }
-    
+
     /**
      * @return the maxX
      */
@@ -275,6 +271,27 @@ public abstract class BlockLetter {
         this.parts = parts;
     }
 
+//</editor-fold>
+    
+//<editor-fold defaultstate="collapsed" desc="Constructors">
+    {
+        position = new Point(0, 0);
+        velocity = new Velocity(0, 1);
+
+        setParts(new ArrayList<>());
+
+        setMaxX(1);
+        setMaxY(1);
+
+        blocks = EnumSet.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT);
+        blocks.clear();
+    }
+
+    public BlockLetter(int x, int y, int width, int height, boolean stationary,
+            AccelerationProviderIntf accelerationProvider) {
+
+        this.accelerationProvider = accelerationProvider;
+    }
 //</editor-fold>
 
 }

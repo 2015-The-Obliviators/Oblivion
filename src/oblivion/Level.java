@@ -54,7 +54,7 @@ public class Level implements AccelerationProviderIntf {
                 level.barriers.clear();
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-                level.barriers.add(new Barrier(new Point(350, 100), 400, 325, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(350, 100), 400, 325, BarrierType.LEFT_WALL));
                 
                 for (Barrier barrier : level.barriers){
                     barrier.setColor(new Color (0, 0, 0));
@@ -78,8 +78,8 @@ public class Level implements AccelerationProviderIntf {
                 
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-                level.barriers.add(new Barrier(new Point(300, 225), 50, 50, BarrierType.WALL));
-                level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(300, 225), 50, 50, BarrierType.LEFT_WALL));
+                level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.LEFT_WALL));
                 
                 //            level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/moons.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
                 
@@ -101,10 +101,10 @@ public class Level implements AccelerationProviderIntf {
                 level.setAcceleration(new Vector2D(0, 2));
                 level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
                 level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-                level.barriers.add(new Barrier(new Point(200, 170), 50, 50, BarrierType.WALL));
-                level.barriers.add(new Barrier(new Point(350, 420), 30, 80, BarrierType.WALL));
-                level.barriers.add(new Barrier(new Point(550, 420), 30, 80, BarrierType.WALL));
-                level.barriers.add(new Barrier(new Point(600, 220), 300, 400, BarrierType.WALL));
+                level.barriers.add(new Barrier(new Point(200, 170), 50, 50, BarrierType.LEFT_WALL));
+                level.barriers.add(new Barrier(new Point(350, 420), 30, 80, BarrierType.LEFT_WALL));
+                level.barriers.add(new Barrier(new Point(550, 420), 30, 80, BarrierType.LEFT_WALL));
+                level.barriers.add(new Barrier(new Point(600, 220), 300, 400, BarrierType.LEFT_WALL));
                 
 //                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/greystars.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
                 

@@ -5,6 +5,7 @@
  */
 package oblivion;
 
+import environment.Direction;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -55,29 +56,26 @@ public final class BlockLetterI extends BlockLetter {
 
 //<editor-fold defaultstate="collapsed" desc="Movement Methods">
     @Override
-    public void grow(Direction direction) {
-        stem.height += 1;
-        
-        if (direction == Direction.UP) {
+    public void grow() {
+        if (!isBlocked(Direction.DOWN)){
+            stem.height += 1;
+        } else if (!isBlocked(Direction.UP)) {
+            stem.height += 1;
             setPosition(getPosition().x, getPosition().y - 1);
-        } else {
-            setPosition(getPosition().x, getPosition().y);
         }
-
-        unblock();
     }
     
     @Override
-    public void shrink(Direction direction) {
-        stem.height = Math.max(stem.height -1, 0);
+    public void shrink() {
+        stem.height -= 1;
         
-        if (direction == Direction.UP) {
-            setPosition(getPosition().x, getPosition().y + 1);
-        } else {
-            setPosition(getPosition().x, getPosition().y);
-        }
-
-        unblock();
+//      TODO: Fix this logic
+        
+//        if (!isBlocked(Direction.DOWN)){
+//        } else if (!isBlocked(Direction.UP)) {
+//            stem.height += 1;
+//            setPosition(getPosition().x, getPosition().y - 1);
+//        }
     }
 //</editor-fold>
        

@@ -212,11 +212,11 @@ public class Block extends Rectangle {
         }
         
         if (hasLeftBarrier()){
-            updatedBarriers.add(new Barrier(getLocation(), width / 2, height, BarrierType.WALL));
+            updatedBarriers.add(new Barrier(getLocation(), width / 2, height, BarrierType.LEFT_WALL));
         }
         
         if (hasRightBarrier()){
-            updatedBarriers.add(new Barrier(new Point(getLocation().x + (width / 2), getLocation().y), width, height / 2, BarrierType.CEILING));
+            updatedBarriers.add(new Barrier(new Point(getLocation().x + (width / 2), getLocation().y), width / 2, height, BarrierType.RIGHT_WALL));
         }
 
         return updatedBarriers;
