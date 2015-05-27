@@ -54,6 +54,10 @@ class OblivionEnvironment extends Environment {
     @Override
     public void timerTaskHandler() {
         checkIntersections();
+        
+        if (level != null) {
+            level.getLetterI().move();
+        }
     }
 
     private static final String SAD_SOUND = "Sad";
@@ -110,8 +114,7 @@ class OblivionEnvironment extends Environment {
                         if (!downBlocked && (barrier.getType() == BarrierType.FLOOR)) {
                             if (letterBarrier.getType() == BarrierType.CEILING) {
                                 downBlocked = true;
-                                System.out.println("Down Blocked");
-
+//                                System.out.println("Down Blocked");
                             }
                         }
 
@@ -119,7 +122,7 @@ class OblivionEnvironment extends Environment {
                         if (!upBlocked && (barrier.getType() == BarrierType.CEILING)) {
                             if (letterBarrier.getType() == BarrierType.FLOOR) {
                                 upBlocked = true;
-                                System.out.println("Up Blocked");
+//                                System.out.println("Up Blocked");
                             }
                         }
 
@@ -127,7 +130,7 @@ class OblivionEnvironment extends Environment {
                         if (!rightBlocked && (barrier.getType() == BarrierType.LEFT_WALL)) {
                             if (letterBarrier.getType() == BarrierType.RIGHT_WALL) {
                                 rightBlocked = true;
-                                System.out.println("Right Blocked");
+//                                System.out.println("Right Blocked");
                             }
                         }
 
@@ -135,7 +138,7 @@ class OblivionEnvironment extends Environment {
                         if (!leftBlocked && (barrier.getType() == BarrierType.RIGHT_WALL)) {
                             if (letterBarrier.getType() == BarrierType.LEFT_WALL) {
                                 leftBlocked = true;
-                                System.out.println("Left Blocked");
+//                                System.out.println("Left Blocked");
                             }
                         }
                     }
@@ -261,10 +264,12 @@ class OblivionEnvironment extends Environment {
                 }
 
                 if (level != null && (level.getBarriers()) != null) {
-                    for (Barrier barrier : level.getBarriers()) {
-                        barrier.draw(graphics);
-
+                    for (Block block : level.getBlocks()) {
+                        block.draw(graphics);
                     }
+//                    for (Barrier barrier : level.getBarriers()) {
+//                        barrier.draw(graphics);
+//                    }
 
                     graphics.setFont(level.getTextFont());
                     graphics.setColor(level.getTextColor());

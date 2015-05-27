@@ -25,6 +25,9 @@ public class Block extends Rectangle {
         bottomBarrier = true;
         leftBarrier = true;
         rightBarrier = true;
+        
+        fillColor = new Color(0, 0, 0, 200);
+        borderColor = new Color(0, 0, 0);
     }
     
     public Block(int x, int y, int width, int height, boolean stationary){
@@ -54,17 +57,17 @@ public class Block extends Rectangle {
     private boolean drawBarriers;
     
     public void draw(Graphics graphics){
-        graphics.setColor(getFillColor());
+        graphics.setColor(fillColor);
         graphics.fillRect(x, y, width, height);
         
-        graphics.setColor(getBorderColor());
+        graphics.setColor(borderColor);
         graphics.drawRect(x, y, width, height);
         
-        if (isDrawBarriers()){
-            for(Barrier barrier : barriers){
-                barrier.draw(graphics);
-            }
-        }
+//        if (isDrawBarriers()){
+//            for(Barrier barrier : getBarriers()){
+//                barrier.draw(graphics);
+//            }
+//        }
     }
     
     /**
