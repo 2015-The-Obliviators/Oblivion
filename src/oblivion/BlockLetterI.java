@@ -70,11 +70,11 @@ public final class BlockLetterI extends BlockLetter {
             stem.height += 1;
             setPosition(getPosition().x, getPosition().y - 1);
         }
-<<<<<<< HEAD
-=======
-
-        setVBlocked(false);
->>>>>>> bim-physics-08
+//<<<<<<< HEAD
+//=======
+//
+//        setVBlocked(false);
+//>>>>>>> bim-physics-08
     }
     
     @Override
@@ -86,11 +86,7 @@ public final class BlockLetterI extends BlockLetter {
             stem.height -= 1;
             setPosition(getPosition().x, getPosition().y + 1);
         }
-<<<<<<< HEAD
-=======
 
-        setVBlocked(false);
->>>>>>> bim-physics-08
     }
 //</editor-fold>
        
