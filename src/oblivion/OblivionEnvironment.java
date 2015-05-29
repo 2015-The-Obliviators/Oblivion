@@ -54,8 +54,12 @@ class OblivionEnvironment extends Environment {
     @Override
     public void timerTaskHandler() {
         checkIntersections();
+<<<<<<< HEAD
         
         if (level != null) {
+=======
+        if ((level != null) && (level.getLetterI() != null)) {
+>>>>>>> bim-physics-08
             level.getLetterI().move();
         }
     }
@@ -98,9 +102,15 @@ class OblivionEnvironment extends Environment {
             boolean leftBlocked = false;
             boolean rightBlocked = false;
 
+<<<<<<< HEAD
 //            for (Letter letter : level.getLetterI()) {
 //            upBlocked = false;
 //            leftBlocked = false;
+=======
+            letterVBlocked = false;
+            letterHBlocked = false;
+
+>>>>>>> bim-physics-08
             for (Barrier barrier : level.getBarriers()) {
                 for (Barrier letterBarrier : level.getLetterI().getBarriers()) {
                     if (barrier.intersects(letterBarrier)) {
@@ -113,6 +123,7 @@ class OblivionEnvironment extends Environment {
                         //check down blocks
                         if (!downBlocked && (barrier.getType() == BarrierType.FLOOR)) {
                             if (letterBarrier.getType() == BarrierType.CEILING) {
+<<<<<<< HEAD
                                 downBlocked = true;
 //                                System.out.println("Down Blocked");
                             }
@@ -139,19 +150,40 @@ class OblivionEnvironment extends Environment {
                             if (letterBarrier.getType() == BarrierType.LEFT_WALL) {
                                 leftBlocked = true;
 //                                System.out.println("Left Blocked");
+=======
+                                letterVBlocked |= true;
+                            }
+                        }
+
+                        if (barrier.getType() == BarrierType.CEILING) {
+                            if (letterBarrier.getType() == BarrierType.FLOOR) {
+                                letterVBlocked |= true;
+                            }
+                        }
+
+                        if (barrier.getType() == BarrierType.WALL) {
+                            if (letterBarrier.getType() == BarrierType.WALL) {
+                                letterHBlocked |= true;
+>>>>>>> bim-physics-08
                             }
                         }
                     }
                 }
+<<<<<<< HEAD
 
                 level.getLetterI().setBlocked(Direction.UP, upBlocked);
                 level.getLetterI().setBlocked(Direction.DOWN, downBlocked);
                 level.getLetterI().setBlocked(Direction.LEFT, leftBlocked);
                 level.getLetterI().setBlocked(Direction.RIGHT, rightBlocked);
+=======
+>>>>>>> bim-physics-08
             }
+            
+            level.getLetterI().setVBlocked(letterVBlocked);
+            level.getLetterI().setHBlocked(letterHBlocked);
         }
     }
-    int speed = 6;
+    int speed = 1;
 
     @Override
     public void keyPressedHandler(KeyEvent e) {
@@ -267,9 +299,12 @@ class OblivionEnvironment extends Environment {
                     for (Block block : level.getBlocks()) {
                         block.draw(graphics);
                     }
+<<<<<<< HEAD
 //                    for (Barrier barrier : level.getBarriers()) {
 //                        barrier.draw(graphics);
 //                    }
+=======
+>>>>>>> bim-physics-08
 
                     graphics.setFont(level.getTextFont());
                     graphics.setColor(level.getTextColor());

@@ -35,9 +35,16 @@ public class Level implements AccelerationProviderIntf {
 
         switch (levelNumber) {
             case 1:
+<<<<<<< HEAD
 //                level.barriers.clear();
 //                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
 //                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
+=======
+                level.barriers.clear();
+                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
+                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
+//                level.barriers.add(new Barrier(new Point(50, 300), 100, 100, BarrierType.WALL));
+>>>>>>> bim-physics-08
 
 //                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/starryforest.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
                 level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
@@ -53,6 +60,7 @@ public class Level implements AccelerationProviderIntf {
                 break;
 
             case 2:
+<<<<<<< HEAD
 //                level.barriers.clear();
 //                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
 //                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
@@ -62,6 +70,17 @@ public class Level implements AccelerationProviderIntf {
 //                    barrier.setColor(new Color (0, 0, 0));
 //                }
 
+=======
+                level.barriers.clear();
+                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
+                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
+                level.barriers.add(new Barrier(new Point(350, 100), 400, 325, BarrierType.FLOOR));
+                
+                for (Barrier barrier : level.barriers){
+                    barrier.setColor(new Color (0, 0, 0));
+                }
+                
+>>>>>>> bim-physics-08
 //                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/hubble.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
                 level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
                 level.setTextColor(new Color(230, 230, 230, 75));
@@ -74,11 +93,22 @@ public class Level implements AccelerationProviderIntf {
                 break;
 
             case 3:
+<<<<<<< HEAD
                 level.getBlocks().add(new Block(0, 0, 1000, 100, true));   //ceiling of level
                 level.getBlocks().add(new Block(0, 500, 1000, 100, true)); //floor of level
 
                 level.getBlocks().add(new Block(300, 225, 50, 50, true)); //chin up cube
                 level.getBlocks().add(new Block(475, 400, 300, 100, true)); //chin up cube
+=======
+                level.barriers.clear();
+                
+                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
+                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
+//                level.barriers.add(new Barrier(new Point(300, 225), 50, 50, BarrierType.FLOOR));
+//                level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.FLOOR));
+                level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.WALL));
+
+>>>>>>> bim-physics-08
                 
 //                level.barriers.clear();
 //                
@@ -162,8 +192,8 @@ public class Level implements AccelerationProviderIntf {
 //        barriers = new ArrayList<>();
         blocks = new ArrayList<>();
         text = "";
-        acceleration = new Vector2D(0, 0);
-        setLetterI(new BlockLetterI(100, 100, 100, 150, false, this));
+        acceleration = new Vector2D(0, 2);
+        setLetterI(new BlockLetterI(100, 120, 100, 150, false, this));
     }
 //</editor-fold>
 

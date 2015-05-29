@@ -14,6 +14,13 @@ import java.awt.Rectangle;
  * @author kevin.lawrence
  */
 public final class BlockLetterI extends BlockLetter {
+    
+    //TODO: need left and right barrier, and left and right blocked to allow 
+    //      horizontal motion when blocked one side
+    //      do the same for UP and DOWN blocked
+    //TODO: consider level with Block instead of barriers, compute barrier
+    //TODO: optimize checkCollisions, bail out when VBlock or HBlock is found
+    
 
 //<editor-fold defaultstate="collapsed" desc="Constructors">
     public BlockLetterI(int x, int y, int width, int height, boolean stationary,
@@ -63,6 +70,11 @@ public final class BlockLetterI extends BlockLetter {
             stem.height += 1;
             setPosition(getPosition().x, getPosition().y - 1);
         }
+<<<<<<< HEAD
+=======
+
+        setVBlocked(false);
+>>>>>>> bim-physics-08
     }
     
     @Override
@@ -74,6 +86,11 @@ public final class BlockLetterI extends BlockLetter {
             stem.height -= 1;
             setPosition(getPosition().x, getPosition().y + 1);
         }
+<<<<<<< HEAD
+=======
+
+        setVBlocked(false);
+>>>>>>> bim-physics-08
     }
 //</editor-fold>
        

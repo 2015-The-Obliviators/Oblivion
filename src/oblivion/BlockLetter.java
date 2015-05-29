@@ -51,27 +51,44 @@ public abstract class BlockLetter {
 
         switch (direction) {
             case LEFT:
+<<<<<<< HEAD
                 if (!isBlocked(Direction.LEFT)){
                     x = -distance;
                 }
+=======
+                x = -3 * distance;
+>>>>>>> bim-physics-08
                 break;
                 
             case RIGHT:
+<<<<<<< HEAD
                 if (!isBlocked(Direction.RIGHT)){
                     x = distance;
                 }
+=======
+                x = 3 * distance;
+>>>>>>> bim-physics-08
                 break;
                 
             case UP:
+<<<<<<< HEAD
                 if (!isBlocked(Direction.UP)){
                     y = -distance;
                 }
+=======
+                y = -3 * distance;
+>>>>>>> bim-physics-08
                 break;
                 
             case DOWN:
+<<<<<<< HEAD
                 if (!isBlocked(Direction.DOWN)){
                     y = distance;
                 }
+=======
+                y = 3 * distance;
+                break;
+>>>>>>> bim-physics-08
         }
 
         move(x, y);
@@ -153,8 +170,16 @@ public abstract class BlockLetter {
     /**
      * @param direction the direction to add to the blocking list
      */
+<<<<<<< HEAD
     public void addBlock(Direction direction) {
         blockedDirections.add(direction);
+=======
+    public void setVBlocked(boolean blocked) {
+        if (this.vBlocked != blocked){
+            this.vBlocked = blocked;
+            System.out.println("VBlocked = " + blocked);
+        }        
+>>>>>>> bim-physics-08
     }
 
     /**
@@ -168,6 +193,7 @@ public abstract class BlockLetter {
      * @return collection of all Barrier objects, constructed form the
      * constituent BlockLetterParts
      */
+<<<<<<< HEAD
     public ArrayList<Barrier> getBarriers() {
         ArrayList<Barrier> barriers = new ArrayList<>();
 
@@ -176,6 +202,13 @@ public abstract class BlockLetter {
         });
 
         return barriers;
+=======
+    public void setHBlocked(boolean blocked) {
+        if (this.hBlocked != blocked){
+            this.hBlocked = blocked;
+            System.out.println("HBlocked = " + blocked);
+        }        
+>>>>>>> bim-physics-08
     }
 
     /**

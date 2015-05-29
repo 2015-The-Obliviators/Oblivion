@@ -63,11 +63,19 @@ public class Block extends Rectangle {
         graphics.setColor(borderColor);
         graphics.drawRect(x, y, width, height);
         
+<<<<<<< HEAD
 //        if (isDrawBarriers()){
 //            for(Barrier barrier : getBarriers()){
 //                barrier.draw(graphics);
 //            }
 //        }
+=======
+        if (isDrawBarriers()){
+            for(Barrier barrier : getBarriers()){
+                barrier.draw(graphics);
+            }
+        }
+>>>>>>> bim-physics-08
     }
     
     /**
@@ -219,7 +227,11 @@ public class Block extends Rectangle {
         }
         
         if (hasRightBarrier()){
+<<<<<<< HEAD
             updatedBarriers.add(new Barrier(new Point(getLocation().x + (width / 2), getLocation().y), width / 2, height, BarrierType.RIGHT_WALL));
+=======
+            updatedBarriers.add(new Barrier(new Point(getLocation().x + (width / 2), getLocation().y), width / 2, height, BarrierType.WALL));
+>>>>>>> bim-physics-08
         }
 
         return updatedBarriers;
