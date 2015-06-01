@@ -159,7 +159,6 @@ public class Level implements AccelerationProviderIntf {
     }
 
     {
-//        barriers = new ArrayList<>();
         blocks = new ArrayList<>();
         text = "";
         acceleration = new Vector2D(0, 0);
