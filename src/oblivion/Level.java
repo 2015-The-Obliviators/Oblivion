@@ -26,7 +26,7 @@ public class Level implements AccelerationProviderIntf {
         level.setAcceleration(new Vector2D(0, 2));
 
         level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-       
+
         //default text settings
         level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
         level.setTextColor(new Color(230, 230, 230, 75));
@@ -34,15 +34,15 @@ public class Level implements AccelerationProviderIntf {
         level.setTextY(75);
 
         switch (levelNumber) {
-            
+
             //<editor-fold defaultstate="collapsed" desc="1">
             case 1:
                 level.getBlocks().add(new Block(0, 500, 1000, 100, true)); //floor of level
                 level.getBlocks().add(new Block(0, 0, 1000, 100, true)); //ceiling of level
-                
+
                 level.setText("Use the right and left arrows to move");
                 level.setAcceleration(new Vector2D(0, 1));
-                
+
                 level.setLetterHeight(150);
                 level.setLetterWidth(125);
                 level.setLetterX(700);
@@ -50,17 +50,17 @@ public class Level implements AccelerationProviderIntf {
                 level.setLetterImage(ResourceTools.loadImageFromResource("resources/Oblivion.png"));
                 break;
 //</editor-fold>
-                
+
             //<editor-fold defaultstate="collapsed" desc="2">
             case 2:
                 level.getBlocks().add(new Block(0, 500, 1000, 100, true)); //floor of level
                 level.getBlocks().add(new Block(0, 0, 1000, 100, true)); //ceiling of level
                 level.getBlocks().add(new Block(350, 100, 400, 325, true)); //Duck under block
-                
+
                 level.setText("Use the up and down arrows to grow and shrink");
-                
+
                 level.setAcceleration(new Vector2D(0, 2));
-                
+
                 level.setLetterHeight(150);
                 level.setLetterWidth(125);
                 level.setLetterX(775);
@@ -68,38 +68,37 @@ public class Level implements AccelerationProviderIntf {
                 level.setLetterImage(ResourceTools.loadImageFromResource("resources/B.png"));
                 break;
 //</editor-fold>
-                
+
             //<editor-fold defaultstate="collapsed" desc="3">
             case 3:
                 level.getBlocks().add(new Block(0, 0, 1000, 100, true));   //ceiling of level
                 level.getBlocks().add(new Block(0, 500, 1000, 100, true)); //floor of level
-                
+
                 level.getBlocks().add(new Block(300, 225, 50, 50, true)); //chin up cube
                 level.getBlocks().add(new Block(475, 400, 300, 100, true)); //landing cube
-                
+
                 level.setText("Can you chin up?");
                 level.setAcceleration(new Vector2D(0, 2));
-                
-                 level.setLetterHeight(150);
+
+                level.setLetterHeight(150);
                 level.setLetterWidth(125);
                 level.setLetterX(600);
                 level.setLetterY(380);
                 level.setLetterImage(ResourceTools.loadImageFromResource("resources/L.png"));
                 break;
 //</editor-fold>
-                
+
             //<editor-fold defaultstate="collapsed" desc="4">
-                
             case 4:
                 level.setAcceleration(new Vector2D(0, 2));
                 level.getBlocks().add(new Block(0, 0, 1000, 100, true));   //ceiling of level
                 level.getBlocks().add(new Block(0, 500, 1000, 100, true)); //floor of level
-                
+
                 level.getBlocks().add(new Block(200, 170, 50, 50, true)); //chin up cube
                 level.getBlocks().add(new Block(350, 420, 30, 80, true)); //button left
                 level.getBlocks().add(new Block(550, 420, 30, 80, true)); //button right
                 level.getBlocks().add(new Block(600, 220, 300, 280, true)); //landing cube
-               
+
                 level.setTextX(150);
                 level.setText("I wonder what that button does...");
                 break;
@@ -109,7 +108,7 @@ public class Level implements AccelerationProviderIntf {
             case 5:
                 level.setAcceleration(new Vector2D(0, 2));
 //                level.setBarriers(new ArrayList<>());
-                
+
                 break;
 //</editor-fold>
 
@@ -117,7 +116,7 @@ public class Level implements AccelerationProviderIntf {
             case 6:
                 level.setAcceleration(new Vector2D(0, 2));
 //                level.setBarriers(new ArrayList<>());
-                
+
                 break;
 //</editor-fold>
 
@@ -125,7 +124,7 @@ public class Level implements AccelerationProviderIntf {
             case 7:
                 level.setAcceleration(new Vector2D(0, 2));
 //                level.setBarriers(new ArrayList<>());
-                
+
                 break;
 //</editor-fold>
 
@@ -133,7 +132,7 @@ public class Level implements AccelerationProviderIntf {
             case 8:
                 level.setAcceleration(new Vector2D(0, 2));
 //                level.setBarriers(new ArrayList<>());
-                
+
                 break;
 //</editor-fold>
 
@@ -325,7 +324,6 @@ public class Level implements AccelerationProviderIntf {
         return blocks;
     }
 
-
     /**
      * @return the letterImage
      */
@@ -367,7 +365,6 @@ public class Level implements AccelerationProviderIntf {
     public void setLetterY(int letterY) {
         this.letterY = letterY;
     }
-
 
     /**
      * @return the letterHeight
