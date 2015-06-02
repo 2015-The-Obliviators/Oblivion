@@ -207,19 +207,20 @@ public class Block extends Rectangle {
         ArrayList<Barrier> updatedBarriers = new ArrayList<>();
         
         if (hasTopBarrier()){
-            updatedBarriers.add(new Barrier(getLocation(), width, height / 2, BarrierType.FLOOR));
+//            updatedBarriers.add(new Barrier(new Point (getLocation().x - 2 , getLocation().y - 1), width - 4, height = 2, BarrierType.FLOOR));
+            updatedBarriers.add(new Barrier(new Point (x + 2 , y - 1), width - 4, 2, BarrierType.FLOOR));
         }
         
         if (hasBottomBarrier()){
-            updatedBarriers.add(new Barrier(new Point(getLocation().x, getLocation().y + (height / 2)), width, height / 2, BarrierType.CEILING));
+            updatedBarriers.add(new Barrier(new Point(x + 2 , y + (height - 2 )), width - 4, 2, BarrierType.CEILING));
         }
         
         if (hasLeftBarrier()){
-            updatedBarriers.add(new Barrier(getLocation(), width / 2, height, BarrierType.LEFT_WALL));
+            updatedBarriers.add(new Barrier(new Point (x - 1, y + 2), 2, height - 4, BarrierType.LEFT_WALL));
         }
         
         if (hasRightBarrier()){
-            updatedBarriers.add(new Barrier(new Point(getLocation().x + (width / 2), getLocation().y), width / 2, height, BarrierType.RIGHT_WALL));
+            updatedBarriers.add(new Barrier(new Point(x + (width  - 2), y + 2), 2, height - 4 , BarrierType.RIGHT_WALL));
         }
 
         return updatedBarriers;
