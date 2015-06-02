@@ -63,11 +63,13 @@ public class Block extends Rectangle {
         graphics.setColor(borderColor);
         graphics.drawRect(x, y, width, height);
         
-//        if (isDrawBarriers()){
-//            for(Barrier barrier : getBarriers()){
-//                barrier.draw(graphics);
-//            }
-//        }
+//        graphics.setColor(Color.RED);
+        if (isDrawBarriers()){
+            for(Barrier barrier : getBarriers()){
+                barrier.setColor(Color.RED);
+                barrier.draw(graphics);
+            }
+        }
     }
     
     /**
@@ -207,7 +209,6 @@ public class Block extends Rectangle {
         ArrayList<Barrier> updatedBarriers = new ArrayList<>();
         
         if (hasTopBarrier()){
-//            updatedBarriers.add(new Barrier(new Point (getLocation().x - 2 , getLocation().y - 1), width - 4, height = 2, BarrierType.FLOOR));
             updatedBarriers.add(new Barrier(new Point (x + 2 , y - 1), width - 4, 2, BarrierType.FLOOR));
         }
         
@@ -218,6 +219,7 @@ public class Block extends Rectangle {
         if (hasLeftBarrier()){
             updatedBarriers.add(new Barrier(new Point (x - 1, y + 2), 2, height - 4, BarrierType.LEFT_WALL));
         }
+        
         
         if (hasRightBarrier()){
             updatedBarriers.add(new Barrier(new Point(x + (width  - 2), y + 2), 2, height - 4 , BarrierType.RIGHT_WALL));

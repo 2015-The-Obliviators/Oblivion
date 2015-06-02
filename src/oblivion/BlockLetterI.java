@@ -27,6 +27,10 @@ public final class BlockLetterI extends BlockLetter {
         getParts().add(topBar);
         getParts().add(stem);
         getParts().add(bottomBar);
+        
+        topBar.setDrawBarriers(true);
+        stem.setDrawBarriers(true);
+        bottomBar.setDrawBarriers(true);
 
 //        for (BlockLetterPart blockLetterPart: getParts()){
 //            blockLetterPart.setFillColor(Color.BLUE);
