@@ -125,9 +125,6 @@ public abstract class BlockLetter {
     private ArrayList<BlockLetterPart> parts;
     private AccelerationProviderIntf accelerationProvider;
 
-//    private boolean vBlocked = false;
-//    private boolean hBlocked = false;
-
     private EnumSet<Direction> blockedDirections;
 
     /**
@@ -288,7 +285,6 @@ public abstract class BlockLetter {
 
     public BlockLetter(int x, int y, int width, int height, boolean stationary,
             AccelerationProviderIntf accelerationProvider) {
-
         this.accelerationProvider = accelerationProvider;
     }
 //</editor-fold>

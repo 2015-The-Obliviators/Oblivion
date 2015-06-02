@@ -151,6 +151,7 @@ public class Level implements AccelerationProviderIntf {
         }
         
         level.getBlocks().stream().forEach((block) -> {
+            block.setDrawBarriers(true);
             block.setBorderColor(Color.BLACK);
             block.setFillColor(new Color(20, 20, 20, 200));
         });
