@@ -17,8 +17,10 @@ public final class BlockLetterI extends BlockLetter {
 
 //<editor-fold defaultstate="collapsed" desc="Constructors">
     public BlockLetterI(int x, int y, int width, int height, boolean stationary,
-            AccelerationProviderIntf accelerationProvider) {
+            AccelerationProviderIntf accelerationProvider, 
+            SoundEventHandlerIntf soundEventHandler) {
         super(x, y, width, height, stationary, accelerationProvider);
+        this.soundEventHandler = soundEventHandler;
         
         topBar = new BlockLetterPart(x, y, width / 2, height / 10);
         stem = new BlockLetterPart(x, y, width / 6, height * 6 / 10);
@@ -83,6 +85,7 @@ public final class BlockLetterI extends BlockLetter {
        
 //<editor-fold defaultstate="collapsed" desc="Properties">
     private BlockLetterPart topBar, stem, bottomBar;
+    private final SoundEventHandlerIntf soundEventHandler;
     
     /**
      * @param position the position to set
@@ -93,6 +96,17 @@ public final class BlockLetterI extends BlockLetter {
         topBar.setLocation(position.x, position.y);
     }
 
+     /**
+     * @param blocked the vBlocked to set
+     */
+//    @Override
+    public void setVBlocked(boolean blocked) {
+        if (blocked  && this.isVBlocked() && (this.soundEventHandler != null)){
+            soundEventHandler.onEvent("COLLISION");
+        }
+
+        super.setVBlocked(blocked);
+    }
 //</editor-fold>
     
 }

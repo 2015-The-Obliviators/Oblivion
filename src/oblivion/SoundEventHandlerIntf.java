@@ -9,6 +9,6 @@ package oblivion;
  *
  * @author audreykellogg
  */
-class soundManager {
-    
+public interface SoundEventHandlerIntf {
+    public void onEvent(String event);
 }

@@ -29,14 +29,13 @@ import audio.Playlist;
  *
  * @author marieleger
  */
-class OblivionEnvironment extends Environment {
+class OblivionEnvironment extends Environment implements SoundEventHandlerIntf {
 
     private GameState gameLevel = GameState.START;
-    
+
 //    private Clip clip;
 //    private ArrayList<Barrier> barriers;
 //    private ArrayList<Letter> letters;
-
     private SoundManager soundManager;
     private AudioEventListenerIntf audioEventListener;
     private Level level;
@@ -45,9 +44,10 @@ class OblivionEnvironment extends Environment {
     @Override
     public void initializeEnvironment() {
         this.setBackground(ResourceTools.loadImageFromResource("resources/starstree.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-        
+
         Playlist myPlaylist = new Playlist(getTracks());
-        soundManager = new SoundManager(myPlaylist, new AudioEventListener());
+//        soundManager = new SoundManager(myPlaylist, new AudioEventListener());
+        soundManager = new SoundManager(myPlaylist);
 
         AudioPlayer.play("/resources/sadnessMusic.wav", 3);
     }
@@ -55,12 +55,19 @@ class OblivionEnvironment extends Environment {
     @Override
     public void timerTaskHandler() {
         checkIntersections();
+
+        if ((level != null) && (level.getLetterI() != null)) {
+            level.getLetterI().move();
+        }
     }
 
     private static final String SAD_SOUND = "Sad";
     private static final String WIN_SOUND = "Win";
     private static final String JUMP_SOUND = "Jump";
     private static final String DOWN_SOUND = "Down";
+    private static final String GONG_SOUND = "Gong";
+    private static final String BELL_SOUND = "Bell";
+    private static final String THUNDER_SOUND = "Thunder";
 
     private ArrayList<Track> getTracks() {
         ArrayList<Track> tracks = new ArrayList<>();
@@ -69,25 +76,39 @@ class OblivionEnvironment extends Environment {
         tracks.add(new Track(WIN_SOUND, Source.RESOURCE, "/resources/win.wav"));
         tracks.add(new Track(JUMP_SOUND, Source.RESOURCE, "/resources/mario_jumping.wav"));
         tracks.add(new Track(DOWN_SOUND, Source.RESOURCE, "/resources/down.wav"));
+        tracks.add(new Track(GONG_SOUND, Source.RESOURCE, "/resources/Asian_Gong_Hit.wav"));
+        tracks.add(new Track(BELL_SOUND, Source.RESOURCE, "/resources/Metal_Gong.wav"));
+        tracks.add(new Track(THUNDER_SOUND, Source.RESOURCE, "/resources/Thunder.wav"));
 
         return tracks;
-
-//        if ((level != null) && (level.getLetterI() != null)) {
-////            for (Letter letter : level.getLetters()) {
-//            level.getLetterI().move();
-////            }
-//        }
     }
 
-    private class AudioEventListener implements AudioEventListenerIntf {
+//<editor-fold defaultstate="collapsed" desc="SoundEventHandlerIntf">
+    private static final String EVENT_COLLISION = "Collision";
+    private static final String EVENT_CHANGE = "Change";
 
-//        @Override
-        public void onAudioEvent(AudioEvent event, String trackName) {
+    @Override
+    public void onEvent(String event) {
+        String trackName = "";
 
+        if (event.equals(EVENT_COLLISION)) {
+            trackName = GONG_SOUND;
+        } else if (event.equals(EVENT_CHANGE)) {
+            trackName = BELL_SOUND;
         }
 
+        if (soundManager != null) {
+            soundManager.play(trackName);
+        }
     }
+//</editor-fold>
 
+//    private class AudioEventListener implements AudioEventListenerIntf {
+////        @Override
+//        public void onAudioEvent(AudioEvent event, String trackName) {
+//
+//        }
+//    }
     private void checkIntersections() {
         if (level != null) {
             boolean letterVBlocked;
@@ -173,6 +194,14 @@ class OblivionEnvironment extends Environment {
             soundManager.play(JUMP_SOUND);
         } else if (e.getKeyCode() == KeyEvent.VK_5) {
             soundManager.play(DOWN_SOUND);
+        } else if (e.getKeyCode() == KeyEvent.VK_6) {
+            soundManager.play(THUNDER_SOUND);
+//            soundManager.play(GONG_SOUND);
+        } else if (e.getKeyCode() == KeyEvent.VK_7) {
+//            soundManager.play(BELL_SOUND);
+            onEvent(EVENT_CHANGE);
+        } else if (e.getKeyCode() == KeyEvent.VK_8) {
+            onEvent(EVENT_COLLISION);
         }
     }
 
@@ -242,7 +271,7 @@ class OblivionEnvironment extends Environment {
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.rotate(Math.toRadians(0));
                 this.setBackground(level.getBackgroundImage());
-              
+
                 if (level != null && (level.getLetterI()) != null) {
                     level.getLetterI().draw(graphics);
                 }
@@ -252,7 +281,7 @@ class OblivionEnvironment extends Environment {
                         barrier.draw(graphics);
 
                     }
-                    
+
                     graphics.setFont(level.getTextFont());
                     graphics.setColor(level.getTextColor());
                     graphics.drawString(level.getText(), level.getTextX(), level.getTextY());
@@ -300,4 +329,15 @@ class OblivionEnvironment extends Environment {
         }
     }
 
+//    public void playSound() {
+////make sounds when:
+////level changes, key press 6
+////collision occurs, key press 7
+////finds new letter
+//        if (letterVBlocked != true){
+//        play tracks.add(new Track(BELL_SOUND, Source.RESOURCE, "/resources/Metal_Gong.wav"));
+//        }
+//        else if letterHBlocked != true{
+//        play tracks.add(new Track(BELL_SOUND, Source.RESOURCE, "/resources/Metal_Gong.wav"));
+//    }
 }

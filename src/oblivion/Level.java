@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author brookeireland
  */
-public class Level implements AccelerationProviderIntf {
+public class Level implements AccelerationProviderIntf, SoundEventHandlerIntf {
 
 //<editor-fold defaultstate="collapsed" desc="Constructors and Factory Methods">
     public static Level getLevel(int levelNumber) {
@@ -155,7 +155,14 @@ public class Level implements AccelerationProviderIntf {
         barriers = new ArrayList<>();
         text = "";
         acceleration = new Vector2D(0, 0);
-        setLetterI(new BlockLetterI(100, 100, 100, 150, false, this));
+        setLetterI(new BlockLetterI(100, 100, 100, 150, false, this, this));
+    }
+//</editor-fold>
+    
+//<editor-fold defaultstate="collapsed" desc="SoundEventHandlerIntf">
+    @Override
+    public void onEvent(String event) {
+        System.out.println("play sound for event " + event);
     }
 //</editor-fold>
     
@@ -312,6 +319,5 @@ public class Level implements AccelerationProviderIntf {
         this.TextY = TextY;
     }
 //</editor-fold>
-
 
 }

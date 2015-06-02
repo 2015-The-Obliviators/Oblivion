@@ -158,10 +158,6 @@ public abstract class BlockLetter {
      */
     public void setVBlocked(boolean blocked) {
         this.vBlocked = blocked;
-
-//        if (blocked) {
-//            stop();
-//        }
     }
 
     /**
