@@ -98,15 +98,7 @@ class OblivionEnvironment extends Environment {
             boolean leftBlocked = false;
             boolean rightBlocked = false;
 
-//<<<<<<< HEAD
-////            for (Letter letter : level.getLetterI()) {
-////            upBlocked = false;
-////            leftBlocked = false;
-//=======
-//            letterVBlocked = false;
-//            letterHBlocked = false;
 //
-//>>>>>>> bim-physics-08
             for (Barrier barrier : level.getBarriers()) {
                 for (Barrier letterBarrier : level.getLetterI().getBarriers()) {
                     if (barrier.intersects(letterBarrier)) {
@@ -192,12 +184,10 @@ class OblivionEnvironment extends Environment {
                 level.getLetterI().shrink();
             }
         } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            gameLevel = GameState.STORY;
-        } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-            gameLevel = GameState.START;
-        } else if (e.getKeyCode() == KeyEvent.VK_P) {
             gameLevel = GameState.PLAYING;
             level = Level.getLevel(1);
+        } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            gameLevel = GameState.START;
         } else if (e.getKeyCode() == KeyEvent.VK_O) {
             gameLevel = GameState.PLAYING;
             level = Level.getLevel(2);
@@ -223,11 +213,22 @@ class OblivionEnvironment extends Environment {
 
     @Override
     public void environmentMouseClicked(MouseEvent e) {
-
+        System.out.println("Mouse Clicked");
+        if (/*gameLevel = GameState.START &&*/ e.getX() > 450 & e.getX() < 600 && e.getY() > 200 & e.getY() < 250) {
+            gameLevel = GameState.STORY;
+//            level = Level.getLevel(1);
+        } else if (e.getX() > 450 & e.getX() < 600 && e.getY() > 200 & e.getY() < 250) {
+            gameLevel = GameState.CREDITS;
+        } else if (e.getX() > 450 & e.getX() < 600 && e.getY() > 200 & e.getY() < 250) {
+            gameLevel = GameState.PLAYING;
+            level = Level.getLevel(1);
+        }
+        
     }
 
-    @Override
-    public void paintEnvironment(Graphics graphics
+
+@Override
+        public void paintEnvironment(Graphics graphics
     ) {
         Graphics2D g2d = (Graphics2D) graphics;
 
@@ -246,9 +247,9 @@ class OblivionEnvironment extends Environment {
                 graphics.setColor(new Color(230, 230, 230, 75));
                 graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
                 graphics.drawString("Start", 450, 200);
-                graphics.drawString("Instructions", 450, 300);
-                graphics.drawString("Credits", 450, 400);
-                graphics.drawString("Music", 450, 500);
+//                graphics.drawString("Instructions", 450, 300);
+                graphics.drawString("Credits", 450, 300);
+                graphics.drawString("Music", 450, 400);
                 break;
 //</editor-fold>
 
@@ -271,6 +272,8 @@ class OblivionEnvironment extends Environment {
                 graphics.drawString("But even Oblivion cannot always stay together.", 100, 300);
                 graphics.drawString("What if our world were to break?", 100, 350);
                 graphics.drawString("And the complete nothing-ness would scatter.", 100, 400);
+                
+                graphics.drawString("Press Enter To Begin", 100, 450);
                 break;
 //</editor-fold>
 
@@ -295,6 +298,7 @@ class OblivionEnvironment extends Environment {
                     graphics.setFont(level.getTextFont());
                     graphics.setColor(level.getTextColor());
                     graphics.drawString(level.getText(), level.getTextX(), level.getTextY());
+                    graphics.drawImage(level.getLetterImage(), level.getLetterX(), level.getLetterY(), level.getLetterWidth(), level.getLetterHeight(), this);
 
 //                   
                 }
@@ -302,40 +306,16 @@ class OblivionEnvironment extends Environment {
                 break;
 
 //</editor-fold>
-            //<editor-fold defaultstate="collapsed" desc="LEVEL 2">
-//            case LEVEL_2:
-//
-//                g2d.setRenderingHint(
-//                        RenderingHints.KEY_ANTIALIASING,
-//                        RenderingHints.VALUE_ANTIALIAS_ON);
-//                g2d.rotate(Math.toRadians(0));
-//                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-//                graphics.setColor(new Color(230, 230, 230, 75));
-//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
-//                graphics.drawString("To Grow and Shrink", 300, 50);
-//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
-//                graphics.drawString("Use the down and up arrow keys to move change length.", 75, 100);
-//                break;
-//
-////</editor-fold>
-            //            //<editor-fold defaultstate="collapsed" desc="LEVEL 3">
-//            case LEVEL_3:
-//
-//                g2d.setRenderingHint(
-//                        RenderingHints.KEY_ANTIALIASING,
-//                        RenderingHints.VALUE_ANTIALIAS_ON);
-//                g2d.rotate(Math.toRadians(0));
-//                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-//                graphics.setColor(new Color(230, 230, 230, 75));
-//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
-//                graphics.drawString("Look, there's the O!", 300, 50);
-//                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 25));
-//                graphics.drawString("", 75, 100);
-//                break;
-//
-//        }
-//
-////</editor-fold>
+        
+       
+            case CREDITS:
+                 g2d.setRenderingHint(
+                        RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.rotate(Math.toRadians(0));
+                this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+
+                
         }
     }
 
