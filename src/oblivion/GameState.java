@@ -10,6 +10,6 @@ package oblivion;
  * @author brookeireland
  */
 public enum GameState {
-    START, STORY, PLAYING, 
+    START, STORY, PLAYING, CREDITS
     
 }
