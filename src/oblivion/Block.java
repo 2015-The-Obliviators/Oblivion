@@ -63,23 +63,12 @@ public class Block extends Rectangle {
         graphics.setColor(borderColor);
         graphics.drawRect(x, y, width, height);
         
-<<<<<<< HEAD
-//        graphics.setColor(Color.RED);
         if (isDrawBarriers()){
             for(Barrier barrier : getBarriers()){
                 barrier.setColor(Color.RED);
                 barrier.draw(graphics);
             }
         }
-=======
-
-        if (isDrawBarriers()){
-            for(Barrier barrier : getBarriers()){
-                barrier.draw(graphics);
-            }
-        }
-
->>>>>>> origin/master
     }
     
     /**
