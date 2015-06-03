@@ -74,19 +74,13 @@ class OblivionEnvironment extends Environment {
         tracks.add(new Track(DOWN_SOUND, Source.RESOURCE, "/resources/down.wav"));
 
         return tracks;
-
-//        if ((level != null) && (level.getLetterI() != null)) {
-////            for (Letter letter : level.getLetters()) {
-//            level.getLetterI().move();
-////            }
-//        }
     }
 
     private class AudioEventListener implements AudioEventListenerIntf {
 
 //        @Override
         public void onAudioEvent(AudioEvent event, String trackName) {
-
+            System.out.printf("Audio Event '%s' on track '%s'\n", event, trackName);
         }
 
     }
