@@ -25,131 +25,124 @@ public class Level implements AccelerationProviderIntf {
         //default gravity acceleration
         level.setAcceleration(new Vector2D(0, 2));
 
-        //TODO: remove this when the background images are fixed/available
         level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
 
+        //default text settings
         level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
         level.setTextColor(new Color(230, 230, 230, 75));
         level.setTextX(100);
         level.setTextY(75);
 
         switch (levelNumber) {
+
+            //<editor-fold defaultstate="collapsed" desc="1">
             case 1:
-//                level.barriers.clear();
-//                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
-//                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
+                level.getBlocks().add(new Block(0, 500, 1000, 100, true)); //floor of level
+                level.getBlocks().add(new Block(0, 0, 1000, 100, true)); //ceiling of level
 
-//                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/starryforest.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-                level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
-                level.setTextColor(new Color(230, 230, 230, 75));
-                level.setTextX(100);
-                level.setTextY(75);
-                level.setText("Use the left and right arrow keys to move");
-
-//                for (Barrier barrier : level.barriers){
-//                    barrier.setColor(new Color (0, 0, 0));
-//                }
+                level.setText("Use the right and left arrows to move");
                 level.setAcceleration(new Vector2D(0, 1));
+
+                level.setLetterHeight(150);
+                level.setLetterWidth(125);
+                level.setLetterX(700);
+                level.setLetterY(375);
+                level.setLetterImage(ResourceTools.loadImageFromResource("resources/Oblivion.png"));
                 break;
+//</editor-fold>
 
+            //<editor-fold defaultstate="collapsed" desc="2">
             case 2:
-//                level.barriers.clear();
-//                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
-//                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-//                level.barriers.add(new Barrier(new Point(350, 100), 400, 325, BarrierType.LEFT_WALL));
-//                
-//                for (Barrier barrier : level.barriers){
-//                    barrier.setColor(new Color (0, 0, 0));
-//                }
+                level.getBlocks().add(new Block(0, 500, 1000, 100, true)); //floor of level
+                level.getBlocks().add(new Block(0, 0, 1000, 100, true)); //ceiling of level
+                level.getBlocks().add(new Block(350, 100, 400, 325, true)); //Duck under block
 
-//                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/hubble.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-                level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
-                level.setTextColor(new Color(230, 230, 230, 75));
-                level.setTextX(100);
-                level.setTextY(75);
                 level.setText("Use the up and down arrows to grow and shrink");
 
                 level.setAcceleration(new Vector2D(0, 2));
 
+                level.setLetterHeight(150);
+                level.setLetterWidth(125);
+                level.setLetterX(775);
+                level.setLetterY(380);
+                level.setLetterImage(ResourceTools.loadImageFromResource("resources/B.png"));
                 break;
+//</editor-fold>
 
+            //<editor-fold defaultstate="collapsed" desc="3">
             case 3:
                 level.getBlocks().add(new Block(0, 0, 1000, 100, true));   //ceiling of level
                 level.getBlocks().add(new Block(0, 500, 1000, 100, true)); //floor of level
 
                 level.getBlocks().add(new Block(300, 225, 50, 50, true)); //chin up cube
-                level.getBlocks().add(new Block(475, 400, 300, 100, true)); //chin up cube
-                
-//                level.barriers.clear();
-//                
-//                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
-//                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-//                level.barriers.add(new Barrier(new Point(300, 225), 50, 50, BarrierType.LEFT_WALL));
-//                level.barriers.add(new Barrier(new Point(475, 400), 300, 100, BarrierType.LEFT_WALL));
+                level.getBlocks().add(new Block(475, 400, 300, 100, true)); //landing cube
 
-                //            level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/moons.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-//                for (Barrier barrier : level.barriers){
-//                    barrier.setColor(new Color (0, 0, 0));
-//                }
-//                level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
-//                level.setTextColor(new Color(230, 230, 230, 75));
-//                level.setTextX(100);
-//                level.setTextY(75);
                 level.setText("Can you chin up?");
                 level.setAcceleration(new Vector2D(0, 2));
+
+                level.setLetterHeight(150);
+                level.setLetterWidth(125);
+                level.setLetterX(600);
+                level.setLetterY(380);
+                level.setLetterImage(ResourceTools.loadImageFromResource("resources/L.png"));
                 break;
+//</editor-fold>
 
+            //<editor-fold defaultstate="collapsed" desc="4">
             case 4:
-//                level.barriers.clear();
-
                 level.setAcceleration(new Vector2D(0, 2));
-//                level.barriers.add(new Barrier(new Point(0, 500), 1000, 100, BarrierType.FLOOR));
-//                level.barriers.add(new Barrier(new Point(0, 0), 1000, 100, BarrierType.CEILING));
-//                level.barriers.add(new Barrier(new Point(200, 170), 50, 50, BarrierType.LEFT_WALL));
-//                level.barriers.add(new Barrier(new Point(350, 420), 30, 80, BarrierType.LEFT_WALL));
-//                level.barriers.add(new Barrier(new Point(550, 420), 30, 80, BarrierType.LEFT_WALL));
-//                level.barriers.add(new Barrier(new Point(600, 220), 300, 400, BarrierType.LEFT_WALL));
+                level.getBlocks().add(new Block(0, 0, 1000, 100, true));   //ceiling of level
+                level.getBlocks().add(new Block(0, 500, 1000, 100, true)); //floor of level
 
-//                level.setBackgroundImage(ResourceTools.loadImageFromResource("resources/greystars.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
-//                for (Barrier barrier : level.barriers){
-//                    barrier.setColor(new Color (0, 0, 0));
-//                }
-                level.setTextFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
-                level.setTextColor(new Color(230, 230, 230, 75));
-                level.setTextX(100);
-                level.setTextY(75);
+                level.getBlocks().add(new Block(200, 170, 50, 50, true)); //chin up cube
+                level.getBlocks().add(new Block(350, 420, 30, 80, true)); //button left
+                level.getBlocks().add(new Block(550, 420, 30, 80, true)); //button right
+                level.getBlocks().add(new Block(600, 220, 300, 280, true)); //landing cube
+
+                level.setTextX(150);
                 level.setText("I wonder what that button does...");
                 break;
+//</editor-fold>
 
+            //<editor-fold defaultstate="collapsed" desc="5">
             case 5:
                 level.setAcceleration(new Vector2D(0, 2));
 //                level.setBarriers(new ArrayList<>());
 
                 break;
+//</editor-fold>
 
+            //<editor-fold defaultstate="collapsed" desc="6">
             case 6:
                 level.setAcceleration(new Vector2D(0, 2));
 //                level.setBarriers(new ArrayList<>());
 
                 break;
+//</editor-fold>
 
+            //<editor-fold defaultstate="collapsed" desc="7">
             case 7:
                 level.setAcceleration(new Vector2D(0, 2));
 //                level.setBarriers(new ArrayList<>());
 
                 break;
+//</editor-fold>
 
+            //<editor-fold defaultstate="collapsed" desc="8">
             case 8:
                 level.setAcceleration(new Vector2D(0, 2));
 //                level.setBarriers(new ArrayList<>());
 
                 break;
+//</editor-fold>
 
+            //<editor-fold defaultstate="collapsed" desc="9">
             case 9:
                 level.setAcceleration(new Vector2D(0, 2));
 //                level.setBarriers(new ArrayList<>());
+//</editor-fold>
         }
-        
+
         level.getBlocks().stream().forEach((block) -> {
             block.setDrawBarriers(true);
             block.setBorderColor(Color.BLACK);
@@ -162,8 +155,8 @@ public class Level implements AccelerationProviderIntf {
     {
         blocks = new ArrayList<>();
         text = "";
-        acceleration = new Vector2D(0, 0);
-        setLetterI(new BlockLetterI(100, 100, 100, 150, false, this));
+        acceleration = new Vector2D(0, 2);
+        setLetterI(new BlockLetterI(100, 120, 100, 150, false, this));
     }
 //</editor-fold>
 
@@ -178,6 +171,11 @@ public class Level implements AccelerationProviderIntf {
     private int TextY;
     private BlockLetterI letterI;
     private Image backgroundImage;
+    private Image letterImage;
+    private int letterX;
+    private int letterY;
+    private int letterHeight;
+    private int letterWidth;
 
     /**
      * @return the backgroundImage
@@ -212,11 +210,11 @@ public class Level implements AccelerationProviderIntf {
      */
     public ArrayList<Barrier> getBarriers() {
         ArrayList<Barrier> barriers = new ArrayList<>();
-        
+
         getBlocks().stream().forEach((block) -> {
             barriers.addAll(block.barriers);
         });
-        
+
         return barriers;
     }
 
@@ -326,6 +324,74 @@ public class Level implements AccelerationProviderIntf {
     public ArrayList<Block> getBlocks() {
         return blocks;
     }
-//</editor-fold>
 
-}
+    /**
+     * @return the letterImage
+     */
+    public Image getLetterImage() {
+        return letterImage;
+    }
+
+    /**
+     * @param letterImage the letterImage to set
+     */
+    public void setLetterImage(Image letterImage) {
+        this.letterImage = letterImage;
+    }
+
+    /**
+     * @return the letterX
+     */
+    public int getLetterX() {
+        return letterX;
+    }
+
+    /**
+     * @param letterX the letterX to set
+     */
+    public void setLetterX(int letterX) {
+        this.letterX = letterX;
+    }
+
+    /**
+     * @return the letterY
+     */
+    public int getLetterY() {
+        return letterY;
+    }
+
+    /**
+     * @param letterY the letterY to set
+     */
+    public void setLetterY(int letterY) {
+        this.letterY = letterY;
+    }
+
+    /**
+     * @return the letterHeight
+     */
+    public int getLetterHeight() {
+        return letterHeight;
+    }
+
+    /**
+     * @param letterHeight the letterHeight to set
+     */
+    public void setLetterHeight(int letterHeight) {
+        this.letterHeight = letterHeight;
+    }
+
+    /**
+     * @return the letterWidth
+     */
+    public int getLetterWidth() {
+        return letterWidth;
+    }
+
+    /**
+     * @param letterWidth the letterWidth to set
+     */
+    public void setLetterWidth(int letterWidth) {
+        this.letterWidth = letterWidth;
+    }
+}//</editor-fold>

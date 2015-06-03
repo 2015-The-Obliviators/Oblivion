@@ -51,27 +51,43 @@ public abstract class BlockLetter {
 
         switch (direction) {
             case LEFT:
+
                 if (!isBlocked(Direction.LEFT)){
                     x = -distance;
                 }
+
+                x = -3 * distance;
                 break;
                 
             case RIGHT:
+
                 if (!isBlocked(Direction.RIGHT)){
                     x = distance;
                 }
+
+                x = 3 * distance;
+
                 break;
                 
             case UP:
+                
                 if (!isBlocked(Direction.UP)){
                     y = -distance;
                 }
+
+                y = -3 * distance;
+
                 break;
                 
             case DOWN:
+
                 if (!isBlocked(Direction.DOWN)){
                     y = distance;
                 }
+
+                y = 3 * distance;
+                break;
+
         }
 
         move(x, y);
@@ -150,8 +166,10 @@ public abstract class BlockLetter {
     /**
      * @param direction the direction to add to the blocking list
      */
+
     public void addBlock(Direction direction) {
         blockedDirections.add(direction);
+
     }
 
     /**
@@ -165,6 +183,7 @@ public abstract class BlockLetter {
      * @return collection of all Barrier objects, constructed form the
      * constituent BlockLetterParts
      */
+
     public ArrayList<Barrier> getBarriers() {
         ArrayList<Barrier> barriers = new ArrayList<>();
 
@@ -173,6 +192,7 @@ public abstract class BlockLetter {
         });
 
         return barriers;
+
     }
 
     /**
