@@ -105,6 +105,10 @@ public final class BlockLetterI extends BlockLetter {
         super.setPosition(position);
         topBar.setLocation(position.x, position.y);
     }
+    
+    public Rectangle getBoundary(){
+        return new Rectangle(getPosition().x, getPosition().y, topBar.width, (topBar.height + bottomBar.height + stem.height));
+    }
 
 //</editor-fold>
     

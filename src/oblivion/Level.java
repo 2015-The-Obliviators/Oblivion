@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 /**
@@ -61,12 +62,15 @@ public class Level implements AccelerationProviderIntf {
 
                 level.setAcceleration(new Vector2D(0, 2));
 
-                level.setLetterHeight(150);
-                level.setLetterWidth(125);
+                level.setLetterHeight(LETTER_HEIGHT);
+                level.setLetterWidth(LETTER_WIDTH);
                 level.setLetterX(775);
                 level.setLetterY(380);
                 level.setLetterImage(ResourceTools.loadImageFromResource("resources/B.png"));
+                
                 break;
+                
+                
 //</editor-fold>
 
             //<editor-fold defaultstate="collapsed" desc="3">
@@ -161,6 +165,10 @@ public class Level implements AccelerationProviderIntf {
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="Properties">
+    public static final int LETTER_HEIGHT = 150;
+    public static final int LETTER_WIDTH = 125;
+    
+    
     private int levelNumber;
     private ArrayList<Block> blocks;
     private Vector2D acceleration;
@@ -172,11 +180,29 @@ public class Level implements AccelerationProviderIntf {
     private BlockLetterI letterI;
     private Image backgroundImage;
     private Image letterImage;
-    private int letterX;
-    private int letterY;
+    private int letterImageX;
+    private int letterImageY;
     private int letterHeight;
     private int letterWidth;
 
+    
+    public boolean intesectLetters(){
+        if ((letterImage != null) && (letterI != null)){
+            return (letterI.getBoundary().intersects(getLetterImageBoundary()));
+        } else {
+            return false;
+        }
+    }
+    
+    public Rectangle getLetterImageBoundary(){
+        if (letterImage == null){
+            return new Rectangle(-1000, -1000, 0, 0);
+        } else {
+            return new Rectangle(letterImageX, letterImageY, LETTER_WIDTH, LETTER_HEIGHT);
+        }
+    }
+    
+    
     /**
      * @return the backgroundImage
      */
@@ -343,28 +369,28 @@ public class Level implements AccelerationProviderIntf {
      * @return the letterX
      */
     public int getLetterX() {
-        return letterX;
+        return letterImageX;
     }
 
     /**
      * @param letterX the letterX to set
      */
     public void setLetterX(int letterX) {
-        this.letterX = letterX;
+        this.letterImageX = letterX;
     }
 
     /**
      * @return the letterY
      */
     public int getLetterY() {
-        return letterY;
+        return letterImageY;
     }
 
     /**
      * @param letterY the letterY to set
      */
     public void setLetterY(int letterY) {
-        this.letterY = letterY;
+        this.letterImageY = letterY;
     }
 
     /**

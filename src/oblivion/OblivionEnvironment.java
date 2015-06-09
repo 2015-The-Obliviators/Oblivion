@@ -39,7 +39,7 @@ class OblivionEnvironment extends Environment {
     private SoundManager soundManager;
     private AudioEventListenerIntf audioEventListener;
     private Level level;
-
+    public int levelcase = 1;
 //    BlockLetterI letterI;
     @Override
     public void initializeEnvironment() {
@@ -76,6 +76,14 @@ class OblivionEnvironment extends Environment {
         return tracks;
     }
 
+    private void handleLetterIntersection() {
+        //change the level here
+        System.out.println("LETTER hit!!");
+      level.setLevelNumber(levelcase + 1);
+      
+   
+    }
+
     private class AudioEventListener implements AudioEventListenerIntf {
 
 //        @Override
@@ -91,6 +99,11 @@ class OblivionEnvironment extends Environment {
             boolean downBlocked = false;
             boolean leftBlocked = false;
             boolean rightBlocked = false;
+            
+            if (level.intesectLetters()){
+                handleLetterIntersection();
+            }
+            
 
 //
             for (Barrier barrier : level.getBarriers()) {
