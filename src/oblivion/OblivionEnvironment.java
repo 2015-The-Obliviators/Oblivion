@@ -173,20 +173,20 @@ class OblivionEnvironment extends Environment implements SoundEventHandlerIntf {
                 level.getLetterI().shrink(BlockLetterI.Direction.DOWN);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            gameLevel = GameState.STORY;
+            setGameLevel(GameState.STORY);
         } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-            gameLevel = GameState.START;
+            setGameLevel(GameState.START);
         } else if (e.getKeyCode() == KeyEvent.VK_P) {
-            gameLevel = GameState.PLAYING;
+            setGameLevel(GameState.PLAYING);
             level = Level.getLevel(1);
         } else if (e.getKeyCode() == KeyEvent.VK_O) {
-            gameLevel = GameState.PLAYING;
+            setGameLevel(GameState.PLAYING);
             level = Level.getLevel(2);
         } else if (e.getKeyCode() == KeyEvent.VK_I) {
-            gameLevel = GameState.PLAYING;
+            setGameLevel(GameState.PLAYING);
             level = Level.getLevel(3);
         } else if (e.getKeyCode() == KeyEvent.VK_U) {
-            gameLevel = GameState.PLAYING;
+            setGameLevel(GameState.PLAYING);
             level = Level.getLevel(4);
         } else if (e.getKeyCode() == KeyEvent.VK_3) {
             soundManager.play(WIN_SOUND);
@@ -199,9 +199,9 @@ class OblivionEnvironment extends Environment implements SoundEventHandlerIntf {
 //            soundManager.play(GONG_SOUND);
         } else if (e.getKeyCode() == KeyEvent.VK_7) {
 //            soundManager.play(BELL_SOUND);
-            onEvent(EVENT_CHANGE);
-        } else if (e.getKeyCode() == KeyEvent.VK_8) {
             onEvent(EVENT_COLLISION);
+        } else if (e.getKeyCode() == KeyEvent.VK_8) {
+            onEvent(EVENT_CHANGE);
         }
     }
 
@@ -220,7 +220,7 @@ class OblivionEnvironment extends Environment implements SoundEventHandlerIntf {
     ) {
         Graphics2D g2d = (Graphics2D) graphics;
 
-        switch (gameLevel) {
+        switch (getGameLevel()) {
             //<editor-fold defaultstate="collapsed" desc="START">
             case START:
 
@@ -340,4 +340,22 @@ class OblivionEnvironment extends Environment implements SoundEventHandlerIntf {
 //        else if letterHBlocked != true{
 //        play tracks.add(new Track(BELL_SOUND, Source.RESOURCE, "/resources/Metal_Gong.wav"));
 //    }
+
+    /**
+     * @return the gameLevel
+     */
+    public GameState getGameLevel() {
+        return gameLevel;
+    }
+
+    /**
+     * @param gameLevel the gameLevel to set
+     */
+    public void setGameLevel(GameState gameLevel) {
+        if (this.gameLevel != gameLevel){
+            onEvent(EVENT_CHANGE);
+        }
+        
+        this.gameLevel = gameLevel;
+    }
 }
