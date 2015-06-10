@@ -41,6 +41,7 @@ class OblivionEnvironment extends Environment {
     private Level level;
     public int levelcase = 1;
 //    BlockLetterI letterI;
+
     @Override
     public void initializeEnvironment() {
         this.setBackground(ResourceTools.loadImageFromResource("resources/starstree.jpg").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
@@ -79,9 +80,17 @@ class OblivionEnvironment extends Environment {
     private void handleLetterIntersection() {
         //change the level here
         System.out.println("LETTER hit!!");
-      level.setLevelNumber(levelcase + 1);
-      
-   
+        if (true) {
+            gameLevel = GameState.PLAYING;
+            if (level == Level.getLevel(1)) {
+                level = Level.getLevel(2);
+            } else if (level == Level.getLevel(2)) {
+                level = Level.getLevel(3);
+
+            } else if (level == Level.getLevel(3)) {
+                level = Level.getLevel(4);
+            }
+        }
     }
 
     private class AudioEventListener implements AudioEventListenerIntf {
@@ -99,11 +108,10 @@ class OblivionEnvironment extends Environment {
             boolean downBlocked = false;
             boolean leftBlocked = false;
             boolean rightBlocked = false;
-            
-            if (level.intesectLetters()){
+
+            if (level.intesectLetters()) {
                 handleLetterIntersection();
             }
-            
 
 //
             for (Barrier barrier : level.getBarriers()) {
@@ -221,7 +229,7 @@ class OblivionEnvironment extends Environment {
     @Override
     public void environmentMouseClicked(MouseEvent e) {
         System.out.println("Mouse Clicked");
-        if (/*gameLevel = GameState.START &&*/ e.getX() > 450 & e.getX() < 600 && e.getY() > 200 & e.getY() < 250) {
+        if (/*gameLevel = GameState.START &&*/e.getX() > 450 & e.getX() < 600 && e.getY() > 200 & e.getY() < 250) {
             gameLevel = GameState.STORY;
 //            level = Level.getLevel(1);
         } else if (e.getX() > 450 & e.getX() < 600 && e.getY() > 200 & e.getY() < 250) {
@@ -230,12 +238,11 @@ class OblivionEnvironment extends Environment {
             gameLevel = GameState.PLAYING;
             level = Level.getLevel(1);
         }
-        
+
     }
 
-
-@Override
-        public void paintEnvironment(Graphics graphics
+    @Override
+    public void paintEnvironment(Graphics graphics
     ) {
         Graphics2D g2d = (Graphics2D) graphics;
 
@@ -279,7 +286,7 @@ class OblivionEnvironment extends Environment {
                 graphics.drawString("But even Oblivion cannot always stay together.", 100, 300);
                 graphics.drawString("What if our world were to break?", 100, 350);
                 graphics.drawString("And the complete nothing-ness would scatter.", 100, 400);
-                
+
                 graphics.drawString("Press Enter To Begin", 100, 450);
                 break;
 //</editor-fold>
@@ -301,7 +308,7 @@ class OblivionEnvironment extends Environment {
                     for (Block block : level.getBlocks()) {
                         block.draw(graphics);
                     }
-                     
+
                     graphics.setFont(level.getTextFont());
                     graphics.setColor(level.getTextColor());
                     graphics.drawString(level.getText(), level.getTextX(), level.getTextY());
@@ -313,16 +320,13 @@ class OblivionEnvironment extends Environment {
                 break;
 
 //</editor-fold>
-        
-       
             case CREDITS:
-                 g2d.setRenderingHint(
+                g2d.setRenderingHint(
                         RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.rotate(Math.toRadians(0));
                 this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
 
-                
         }
     }
 
