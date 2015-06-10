@@ -208,25 +208,28 @@ class OblivionEnvironment extends Environment {
     @Override
     public void environmentMouseClicked(MouseEvent e) {
         System.out.println("Mouse Clicked");
-        if (/*gameLevel = GameState.START &&*/ e.getX() > 450 & e.getX() < 600 && e.getY() > 200 & e.getY() < 250) {
-            gameLevel = GameState.STORY;
+        if (gameLevel == GameState.START) {
+            if (e.getX() > 450 & e.getX() < 600 && e.getY() > 150 & e.getY() < 225) {
+                gameLevel = GameState.STORY;
 //            level = Level.getLevel(1);
-        } else if (e.getX() > 450 & e.getX() < 600 && e.getY() > 200 & e.getY() < 250) {
-            gameLevel = GameState.CREDITS;
-        } else if (e.getX() > 450 & e.getX() < 600 && e.getY() > 200 & e.getY() < 250) {
-            gameLevel = GameState.PLAYING;
-            level = Level.getLevel(1);
+            } else if (e.getX() > 450 & e.getX() < 600 && e.getY() > 250 & e.getY() < 325) {
+                gameLevel = GameState.CREDITS;
+            } else if (e.getX() > 450 & e.getX() < 600 && e.getY() > 350 & e.getY() < 450) {
+                AudioPlayer.play("resources/sadnessMusic.wav", 0);
+            }
+        } else if (gameLevel == GameState.STORY) {
+            if (e.getX() > 50 & e.getX() < 500 && e.getY() > 450 & e.getY() < 550) {
+                gameLevel = GameState.PLAYING;
+            }
         }
-        
     }
 
-
-@Override
-        public void paintEnvironment(Graphics graphics
-    ) {
+    @Override
+    public void paintEnvironment(Graphics graphics) {
         Graphics2D g2d = (Graphics2D) graphics;
 
         switch (gameLevel) {
+
             //<editor-fold defaultstate="collapsed" desc="START">
             case START:
 
@@ -246,7 +249,7 @@ class OblivionEnvironment extends Environment {
                 graphics.drawString("Music", 450, 400);
                 break;
 //</editor-fold>
-
+                
             //<editor-fold defaultstate="collapsed" desc="STORY">
             case STORY:
 
@@ -259,6 +262,9 @@ class OblivionEnvironment extends Environment {
                 graphics.setColor(new Color(230, 230, 230, 25));
                 graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.BOLD, 80));
                 graphics.drawString("OBLIVION", 100, 100);
+                graphics.setColor(new Color(230, 230, 230, 50));
+                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.BOLD, 80));
+                graphics.drawString("BEGIN", 100, 500);
                 graphics.setColor(new Color(230, 230, 230, 75));
                 graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
                 graphics.drawString("Where are we really? This world is nothing.", 100, 200);
@@ -266,11 +272,10 @@ class OblivionEnvironment extends Environment {
                 graphics.drawString("But even Oblivion cannot always stay together.", 100, 300);
                 graphics.drawString("What if our world were to break?", 100, 350);
                 graphics.drawString("And the complete nothing-ness would scatter.", 100, 400);
-                
-                graphics.drawString("Press Enter To Begin", 100, 450);
+
                 break;
 //</editor-fold>
-
+                
             //<editor-fold defaultstate="collapsed" desc="PLAYING">
             case PLAYING:
 
@@ -288,7 +293,7 @@ class OblivionEnvironment extends Environment {
                     for (Block block : level.getBlocks()) {
                         block.draw(graphics);
                     }
-                     
+
                     graphics.setFont(level.getTextFont());
                     graphics.setColor(level.getTextColor());
                     graphics.drawString(level.getText(), level.getTextX(), level.getTextY());
@@ -300,16 +305,22 @@ class OblivionEnvironment extends Environment {
                 break;
 
 //</editor-fold>
-        
-       
+                
+            //<editor-fold defaultstate="collapsed" desc="CREDITS">
             case CREDITS:
-                 g2d.setRenderingHint(
+                g2d.setRenderingHint(
                         RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.rotate(Math.toRadians(0));
                 this.setBackground(ResourceTools.loadImageFromResource("resources/stars.png").getScaledInstance(1000, 700, Image.SCALE_SMOOTH));
+                graphics.setColor(new Color(230, 230, 230, 75));
+                graphics.setFont(new Font("FOOTLIGHTMT LIGHT", Font.ITALIC, 30));
+                graphics.drawString("Created, Designed and Developed by BAM!", 100, 200);
+                graphics.drawString("Brooke Martin", 100, 250);
+                graphics.drawString("Marie Leger", 100, 300);
+                graphics.drawString("Audrey Kellogg", 100, 350);
+//</editor-fold>
 
-                
         }
     }
 

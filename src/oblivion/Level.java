@@ -61,10 +61,10 @@ public class Level implements AccelerationProviderIntf {
 
                 level.setAcceleration(new Vector2D(0, 2));
 
-                level.setLetterHeight(150);
-                level.setLetterWidth(125);
-                level.setLetterX(775);
-                level.setLetterY(380);
+                level.setLetterHeight(100);
+                level.setLetterWidth(75);
+                level.setLetterX(800);
+                level.setLetterY(200);
                 level.setLetterImage(ResourceTools.loadImageFromResource("resources/B.png"));
                 break;
 //</editor-fold>
@@ -80,10 +80,10 @@ public class Level implements AccelerationProviderIntf {
                 level.setText("Can you chin up?");
                 level.setAcceleration(new Vector2D(0, 2));
 
-                level.setLetterHeight(150);
-                level.setLetterWidth(125);
-                level.setLetterX(600);
-                level.setLetterY(380);
+                level.setLetterHeight(75);
+                level.setLetterWidth(60);
+                level.setLetterX(500);
+                level.setLetterY(425);
                 level.setLetterImage(ResourceTools.loadImageFromResource("resources/L.png"));
                 break;
 //</editor-fold>
