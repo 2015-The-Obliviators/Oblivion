@@ -5,6 +5,7 @@
  */
 package oblivion;
 
+import audio.AudioPlayer;
 import images.ResourceTools;
 import java.awt.Color;
 import java.awt.Font;
@@ -32,6 +33,12 @@ public class Level implements AccelerationProviderIntf {
         level.setTextColor(new Color(230, 230, 230, 75));
         level.setTextX(100);
         level.setTextY(75);
+
+        if (levelNumber % 2 == 0) {
+            AudioPlayer.play("/resources/metal_gong.wav", 3);
+        } else {
+            AudioPlayer.play("/resources/asian_gong_hit.wav", 3);
+        }
 
         switch (levelNumber) {
 

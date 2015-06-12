@@ -24,6 +24,7 @@ import audio.SoundManager;
 import audio.Source;
 import audio.Track;
 import audio.Playlist;
+import java.util.HashMap;
 
 /**
  *
@@ -60,18 +61,22 @@ class OblivionEnvironment extends Environment {
         }
     }
 
-    private static final String SAD_SOUND = "Sad";
-    private static final String WIN_SOUND = "Win";
-    private static final String JUMP_SOUND = "Jump";
-    private static final String DOWN_SOUND = "Down";
+    public static final String SAD_SOUND = "Sad";
+    public static final String WIN_SOUND = "Win";
+    public static final String JUMP_SOUND = "Jump";
+    public static final String DOWN_SOUND = "Down";
+    public static final String CHANGE_SOUND = "Change";
+    public static final String HIT_SOUND = "Hit";
 
-    private ArrayList<Track> getTracks() {
-        ArrayList<Track> tracks = new ArrayList<>();
+    public static ArrayList<Track> getTracks() {
+        ArrayList<Track> tracks = new ArrayList<Track>();
 
         tracks.add(new Track(SAD_SOUND, Source.RESOURCE, "/resources/sadnessMusic.wav"));
         tracks.add(new Track(WIN_SOUND, Source.RESOURCE, "/resources/win.wav"));
         tracks.add(new Track(JUMP_SOUND, Source.RESOURCE, "/resources/mario_jumping.wav"));
         tracks.add(new Track(DOWN_SOUND, Source.RESOURCE, "/resources/down.wav"));
+        tracks.add(new Track(CHANGE_SOUND, Source.RESOURCE, "/resources/asian_gong_hit.wav"));
+        tracks.add(new Track(HIT_SOUND, Source.RESOURCE, "/resources/metal_gong.wav"));
 
         return tracks;
     }

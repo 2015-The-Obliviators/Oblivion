@@ -5,6 +5,7 @@
  */
 package oblivion;
 
+import audio.AudioPlayer;
 import environment.Direction;
 import environment.Velocity;
 import java.awt.Graphics;
@@ -150,7 +151,6 @@ public abstract class BlockLetter {
     public boolean isBlocked(Direction direction) {
         return blockedDirections.contains(direction);
     }
-
     /**
      * @param direction the direction to add to the blocking list
      * @param blocked

@@ -154,6 +154,7 @@ public class Block extends Rectangle {
         this.bottomBarrier = bottomBarrier;
         
         if (stationary){
+            System.out.println("Love Jordan");
             updateBarriers();
         }
     }
@@ -172,6 +173,7 @@ public class Block extends Rectangle {
         this.leftBarrier = leftBarrier;
         
         if (stationary){
+            System.out.println("I lvoe Jordan");
             updateBarriers();
         }
     }
@@ -190,6 +192,7 @@ public class Block extends Rectangle {
         this.rightBarrier = rightBarrier;
         
         if (stationary){
+            System.out.println("Jordan best");
             updateBarriers();
         }
     }
