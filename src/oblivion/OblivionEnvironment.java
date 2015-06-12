@@ -80,16 +80,15 @@ class OblivionEnvironment extends Environment {
     private void handleLetterIntersection() {
         //change the level here
         System.out.println("LETTER hit!!");
-        if (true) {
-            gameLevel = GameState.PLAYING;
-            if (level == Level.getLevel(1)) {
-                level = Level.getLevel(2);
-            } else if (level == Level.getLevel(2)) {
-                level = Level.getLevel(3);
-
-            } else if (level == Level.getLevel(3)) {
-                level = Level.getLevel(4);
-            }
+//        gameLevel = GameState.PLAYING;
+        
+        
+        if (level.getLevelNumber() == 1) {
+            level = Level.getLevel(2);
+        } else if (level.getLevelNumber() == 2) {
+            level = Level.getLevel(3);
+        } else if (level.getLevelNumber() == 3) {
+            level = Level.getLevel(4);
         }
     }
 

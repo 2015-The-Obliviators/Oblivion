@@ -9,7 +9,6 @@ import images.ResourceTools;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -22,6 +21,7 @@ public class Level implements AccelerationProviderIntf {
 //<editor-fold defaultstate="collapsed" desc="Constructors and Factory Methods">
     public static Level getLevel(int levelNumber) {
         Level level = new Level();
+        level.setLevelNumber(levelNumber);
 
         //default gravity acceleration
         level.setAcceleration(new Vector2D(0, 2));
